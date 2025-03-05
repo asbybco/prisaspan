@@ -156,22 +156,46 @@
             font-size: 40px;
             color: #FFD700;
             cursor: pointer;
-            animation: pulse 2s infinite ease-in-out;
+            position: relative;
+            animation: vibrate 0.3s ease-in-out 5s infinite;
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        .phone-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            background: transparent;
+            border: 2px solid #FFD700;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            animation: wave 0.8s ease-in-out 5s infinite;
+        }
+        @keyframes vibrate {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+        @keyframes wave {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
         }
         .elevenlabs-convai {
             display: none;
             position: absolute;
-            bottom: 60px;
+            bottom: 50px;
             right: 0;
             width: 300px;
             height: 400px;
         }
         .elevenlabs-convai.active {
             display: block;
+        }
+        /* Ocultar el texto "Powered by ElevenLabs Conversational AI" */
+        .elevenlabs-convai > div:last-child {
+            display: none !important;
         }
     </style>
 </head>
