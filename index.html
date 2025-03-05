@@ -21,6 +21,9 @@
     <meta name="twitter:title" content="Prisas Pan - Panes y Pasteles de Lujo">
     <meta name="twitter:description" content="Sabores exquisitos únicos en Prisas Pan. Calidad y lujo en cada bocado desde 1997.">
     <meta name="twitter:image" content="https://prisaspan.pages.dev/img/hero-prisas-pan.webp">
+    <link rel="preload" href="./img/hero-prisas-pan.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style" fetchpriority="high">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" as="style" fetchpriority="high">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -306,7 +309,6 @@
             } else {
                 console.error('Agent ID not set');
             }
-
             
             document.body.classList.add('loaded');
             const fadeInElements = document.querySelectorAll('.fade-in-container');
@@ -318,7 +320,6 @@
             const toggle = document.getElementById('menuToggle');
             menu.classList.toggle('active');
             toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
-
             
             if (menu.classList.contains('active')) {
                 setTimeout(() => {
@@ -329,7 +330,6 @@
                 }, 5000);
             }
         }
-
         
         window.addEventListener('scroll', () => {
             const menu = document.getElementById('navMenu');
@@ -390,5 +390,5 @@
         const animationInterval = setInterval(triggerAnimation, 5000);
         window.addEventListener('unload', () => clearInterval(animationInterval));
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91bc724279aebf8b',t:'MTc0MTIwNzQxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
