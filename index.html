@@ -157,7 +157,9 @@
             color: #FFD700;
             cursor: pointer;
             position: relative;
-            animation: vibrate 0.3s ease-in-out 5s infinite;
+        }
+        .phone-icon.vibrate {
+            animation: vibrate 0.3s ease-in-out;
         }
         .phone-icon::after {
             content: '';
@@ -171,7 +173,9 @@
             border-radius: 50%;
             transform: translate(-50%, -50%) scale(0);
             opacity: 0;
-            animation: wave 0.8s ease-in-out 5s infinite;
+        }
+        .phone-icon.wave::after {
+            animation: wave 0.8s ease-in-out;
         }
         @keyframes vibrate {
             0%, 100% { transform: translateX(0); }
@@ -185,7 +189,7 @@
         .elevenlabs-convai {
             display: none;
             position: absolute;
-            bottom: 50px;
+            bottom: 40px;
             right: 0;
             width: 300px;
             height: 400px;
@@ -193,9 +197,9 @@
         .elevenlabs-convai.active {
             display: block;
         }
-        /* Ocultar el texto "Powered by ElevenLabs Conversational AI" */
-        .elevenlabs-convai > div:last-child {
-            display: none !important;
+        .elevenlabs-convai div[style*="text-align: center"] {
+            font-size: 8px !important;
+            line-height: 8px !important;
         }
     </style>
 </head>
@@ -319,6 +323,13 @@
         phoneIcon.addEventListener('click', () => {
             convai.classList.toggle('active');
         });
+        function triggerAnimation() {
+            phoneIcon.classList.remove('vibrate', 'wave');
+            void phoneIcon.offsetWidth;
+            phoneIcon.classList.add('vibrate', 'wave');
+        }
+        triggerAnimation();
+        setInterval(triggerAnimation, 5000);
     </script>
 </body>
 </html>
