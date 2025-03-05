@@ -43,6 +43,7 @@
     }
     </script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @font-face {
             font-family: 'Playfair Display';
@@ -151,29 +152,23 @@
             right: 20px;
             z-index: 1000;
         }
-        .avatar-button {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 70px;
-            height: 70px;
+        .phone-icon {
+            font-size: 40px;
+            color: #FFD700;
             cursor: pointer;
-            border-radius: 50%;
-            border: 3px solid #FFD700;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            transition: transform 0.3s ease;
+            animation: pulse 2s infinite ease-in-out;
         }
-        .avatar-button:hover {
-            transform: scale(1.1);
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
         .elevenlabs-convai {
             display: none;
+            position: absolute;
+            bottom: 60px;
+            right: 0;
             width: 300px;
             height: 400px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         }
         .elevenlabs-convai.active {
             display: block;
@@ -252,7 +247,7 @@
             width="100%" height="400" style="border:0; border-radius: 20px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="shadow-lg"></iframe>
     </section>
     <div class="elevenlabs-widget-container">
-        <img src="./img/avatar-prisas-pan.jpg" alt="Avatar de Prisas Pan" class="avatar-button" id="avatarButton">
+        <i class="fas fa-phone-alt phone-icon" id="phoneIcon"></i>
         <elevenlabs-convai id="elevenlabsConvai" class="elevenlabs-convai"></elevenlabs-convai>
     </div>
     <footer class="text-white py-6 px-6 text-center">
@@ -295,9 +290,9 @@
         } else {
             console.error("No se encontraron imágenes en el carrusel.");
         }
-        const avatarButton = document.getElementById('avatarButton');
+        const phoneIcon = document.getElementById('phoneIcon');
         const convai = document.getElementById('elevenlabsConvai');
-        avatarButton.addEventListener('click', () => {
+        phoneIcon.addEventListener('click', () => {
             convai.classList.toggle('active');
         });
     </script>
