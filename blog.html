@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explora recetas auténticas de panadería artesanal y desayunos de Cali y Medellín en el Blog de Prisas Pan. Buñuelos, pandebonos, calentados y más con un toque de lujo.">
+    <meta name="keywords" content="panadería artesanal Cali, recetas auténticas Medellín, desayunos colombianos, Prisas Pan, buñuelos caleños, pandebono clásico, pan de yuca paisa, pan de maíz dulce, pan hawaiano guayaba, torta tres leches ron, huevos con hogao, arepa de Choclo, calentado paisa, café colombiano, jugo de naranja maracuyá, avena casera">
+    <meta name="author" content="Prisas Pan">
+    <meta name="robots" content="index, follow">
+    <title>Blog Prisas Pan - Recetas Auténticas de Cali y Medellín</title>
+    <meta property="og:title" content="Blog Prisas Pan - Recetas Auténticas de Cali y Medellín">
+    <meta property="og:description" content="Descubre recetas únicas de panadería artesanal y desayunos de Cali y Medellín: buñuelos, pandebonos, calentados y más con un toque de lujo en Prisas Pan.">
+    <meta property="og:image" content="https://prisaspan.pages.dev/img/bunuelo.webp">
+    <meta property="og:url" content="https://prisaspan.pages.dev/blog.html">
+    <meta property="og:type" content="website">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" fetchpriority="high">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" fetchpriority="high">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1A0F11, #5B2A32);
+            font-family: 'Montserrat', sans-serif;
+            color: #FFD700;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+        }
+        .nav-3d {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(to right, rgba(91, 42, 50, 0.9), rgba(62, 28, 34, 0.9));
+            backdrop-filter: blur(10px);
+            transform: perspective(1000px) rotateX(5deg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .nav-3d svg {
+            transition: transform 0.3s ease;
+        }
+        .nav-3d svg:hover {
+            transform: rotateY(180deg) scale(1.2);
+        }
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .entry-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            background: rgba(62, 28, 34, 0.8);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .entry-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+        }
+        .entry-card .holo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(91, 42, 50, 0.5));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        .entry-card:hover .holo-overlay {
+            opacity: 1;
+        }
+        .entry-card .content {
+            position: relative;
+            z-index: 2;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(62, 28, 34, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            z-index: 2000;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            color: #fff;
+        }
+        .modal.active {
+            display: block;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #FFD700;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1500;
+        }
+        .overlay.active {
+            display: block;
+        }
+        .search-bar {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            background: rgba(91, 42, 50, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 2000;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        .search-bar.active {
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .nav-3d ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(91, 42, 50, 0.9);
+                flex-direction: column;
+            }
+            .nav-3d ul.active {
+                display: flex;
+            }
+            .search-bar {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particle-bg" id="particles"></div>
+    <nav class="nav-3d text-white py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center">
+            <svg width="50" height="50" viewBox="0 0 100 100" class="mr-4" aria-label="Logotipo de Prisas Pan">
+                <rect width="100" height="100" fill="#5B2A32"/>
+                <image xlink:href="./img/logo.svg" x="10" y="10" width="80" height="80"/>
+            </svg>
+            <h1 class="text-3xl font-bold">Blog Prisas Pan</h1>
+        </div>
+        <button class="md:hidden text-2xl" onclick="toggleMenu()" aria-label="Abrir menú" aria-expanded="false" id="menuToggle">☰</button>
+        <ul class="flex space-x-6 hidden md:flex" id="navMenu">
+            <li><a href="index.html" class="hover:text-yellow-300 transition">Inicio</a></li>
+            <li><button id="explore-btn" class="hover:text-yellow-300 transition" onclick="toggleSearch()">Explora Sabores</button></li>
+        </ul>
+    </nav>
+    <div class="search-bar" id="searchBar">
+        <input type="text" id="searchInput" class="w-full p-2 rounded bg-gray-800 text-white border-none focus:outline-none" placeholder="Busca recetas: buñuelos, pandebono..." onkeyup="searchRecipes()">
+        <div id="searchResults" class="mt-2 text-gray-300"></div>
+    </div>
+    <main class="max-w-6xl mx-auto py-12 px-4 mt-16">
+        <section id="blog" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <article class="entry-card relative">
+                <div class="holo-overlay"></div>
+                <img src="./img/pandebono.webp" alt="Pandebono Clásico" class="w-full h-64 object-cover">
+                <div class="content p-6">
+                    <h3 class="text-2xl font-bold">Pandebono Clásico</h3>
+                    <p class="text-gray-300 mt-2">Crujiente por fuera, suave por dentro con un toque de maíz tostado.</p>
+                    <button class="explore-btn text-yellow-300 mt-4 hover:underline" data-modal="modal-pandebono">Explorar</button>
+                </div>
+            </article>
+            <article class="entry-card relative">
+                <div class="holo-overlay"></div>
+                <img src="./img/torta-tres-leches.webp" alt="Torta Tres Leches" class="w-full h-64 object-cover">
+                <div class="content p-6">
+                    <h3 class="text-2xl font-bold">Torta Tres Leches</h3>
+                    <p class="text-gray-300 mt-2">Húmeda y elegante con un toque de ron vallecaucano.</p>
+                    <button class="explore-btn text-yellow-300 mt-4 hover:underline" data-modal="modal-torta">Explorar</button>
+                </div>
+            </article>
+            <article class="entry-card relative">
+                <div class="holo-overlay"></div>
+                <img src="./img/pan-hawaiano.webp" alt="Pan Hawaiano" class="w-full h-64 object-cover">
+                <div class="content p-6">
+                    <h3 class="text-2xl font-bold">Pan Hawaiano</h3>
+                    <p class="text-gray-300 mt-2">Dulce y tropical con un giro de guayaba colombiana.</p>
+                    <button class="explore-btn text-yellow-300 mt-4 hover:underline" data-modal="modal-hawaiano">Explorar</button>
+                </div>
+            </article>
+            <article class="entry-card relative">
+                <div class="holo-overlay"></div>
+                <img src="./img/buñuelo.webp" alt="Buñuelo Relleno De Arequipe" class="w-full h-64 object-cover">
+                <div class="content p-6">
+                    <h3 class="text-2xl font-bold">Buñuelo Relleno De Arequipe</h3>
+                    <p class="text-gray-300 mt-2">Esponjoso y firme con un corazón de arequipe.</p>
+                    <button class="explore-btn text-yellow-300 mt-4 hover:underline" data-modal="modal-bunuelo">Explorar</button>
+                </div>
+            </article>
+            <article class="entry-card relative">
+                <div class="holo-overlay"></div>
+                <img src="./img/pan-de-yuca.webp" alt="Pan de Yuca Paisa" class="w-full h-64 object-cover">
+                <div class="content p-6">
+                    <h3 class="text-2xl font-bold">Pan de Yuca Paisa</h3>
+                    <p class="text-gray-300 mt-2">Compacto y sabroso con un toque de café antioqueño.</p>
+                    <button class="explore-btn text-yellow-300 mt-4 hover:underline" data-modal="modal-yuca">Explorar</button>
+                </div>
+            </article>
+            <article class="entry-card relative">
+                <div class="holo-overlay"></div>
+                <img src="./img/pan-de-maiz.webp" alt="Pan de Maíz Dulce" class="w-full h-64 object-cover">
+                <div class="content p-6">
+                    <h3 class="text-2xl font-bold">Pan de Maíz Dulce</h3>
+                    <p class="text-gray-300 mt-2">Esponjoso y dulce con panela vallecaucana.</p>
+                    <button class="explore-btn text-yellow-300 mt-4 hover:underline" data-modal="modal-maiz">Explorar</button>
+                </div>
+            </article>
+            <article class="entry-card relative">
+                <div class="holo-overlay"></div>
+                <img src="./img/huevos-hogao.webp" alt="Huevos Revueltos con Hogao" class="w-full h-64 object-cover">
+                <div class="content p-6">
+                    <h3 class="text-2xl font-bold">Huevos con Hogao y Café</h3>
+                    <p class="text-gray-300 mt-2">Cremosos con hogao vallecaucano y café con canela.</p>
+                    <button class="explore-btn text-yellow-300 mt-4 hover:underline" data-modal="modal-huevos">Explorar</button>
+                </div>
+            </article>
+            <article class="entry-card relative">
+                <div class="holo-overlay"></div>
+                <img src="./img/arepa-choclo.webp" alt="Arepa de Choclo con Queso" class="w-full h-64 object-cover">
+                <div class="content p-6">
+                    <h3 class="text-2xl font-bold">Arepa de Choclo y Jugo</h3>
+                    <p class="text-gray-300 mt-2">Dulce con queso fundido y jugo de naranja-maracuyá.</p>
+                    <button class="explore-btn text-yellow-300 mt-4 hover:underline" data-modal="modal-arepa">Explorar</button>
+                </div>
+            </article>
+            <article class="entry-card relative">
+                <div class="holo-overlay"></div>
+                <img src="./img/calentado.webp" alt="Calentado Paisa" class="w-full h-64 object-cover">
+                <div class="content p-6">
+                    <h3 class="text-2xl font-bold">Calentado Paisa y Avena</h3>
+                    <p class="text-gray-300 mt-2">Reconfortante con frijoles y avena especiada.</p>
+                    <button class="explore-btn text-yellow-300 mt-4 hover:underline" data-modal="modal-calentado">Explorar</button>
+                </div>
+            </article>
+        </section>
+        <div class="overlay" id="modalOverlay"></div>
+        <div class="modal" id="modal-pandebono">
+            <span class="modal-close">×</span>
+            <h2 class="text-3xl font-bold mb-4">Pandebono Clásico</h2>
+            <img src="./img/pandebono.webp" alt="Pandebono Clásico" class="w-full h-48 object-cover mb-4 rounded">
+            <p class="text-gray-200">Un ícono vallecaucano con un toque de maíz tostado para un sabor único.</p>
+            <h3 class="text-xl font-bold mt-4">Ingredientes (12 unidades):</h3>
+            <ul class="list-disc list-inside text-gray-200">
+                <li>500 g almidón de yuca</li>
+                <li>200 g queso costeño rallado</li>
+                <li>100 g queso fresco</li>
+                <li>50 g harina de maíz precocida tostada</li>
+                <li>2 huevos</li>
+                <li>60 ml leche tibia</li>
+                <li>1 cdta sal</li>
+                <li>1 cdta azúcar</li>
+            </ul>
+            <h3 class="text-xl font-bold mt-4">Preparación:</h3>
+            <ol class="list-decimal list-inside text-gray-200">
+                <li>Precalienta el horno a 220°C, forra una bandeja con papel pergamino.</li>
+                <li>Mezcla almidón, harina tostada, sal y azúcar.</li>
+                <li>Añade quesos, luego huevos y leche, amasa hasta homogeneidad.</li>
+                <li>Forma bolas de 50 g, hornea 22 min hasta dorar.</li>
+                <li>Sirve caliente.</li>
+            </ol>
+        </div>
+        <div class="modal" id="modal-torta">
+            <span class="modal-close">×</span>
+            <h2 class="text-3xl font-bold mb-4">Torta Tres Leches</h2>
+            <img src="./img/torta-tres-leches.webp" alt="Torta Tres Leches" class="w-full h-48 object-cover mb-4 rounded">
+            <p class="text-gray-200">Húmeda y rica con un toque de ron vallecaucano.</p>
+            <h3 class="text-xl font-bold mt-4">Ingredientes (8 porciones):</h3>
+            <ul class="list-disc list-inside text-gray-200">
+                <li>Bizcocho: 4 huevos, 120 g azúcar, 100 g harina, 1 cdta polvo de hornear, 1 cdta vainilla</li>
+                <li>Tres leches: 200 ml leche condensada, 200 ml leche evaporada, 180 ml crema de leche + 20 ml ron oscuro</li>
+                <li>Merengue: 3 claras, 150 g azúcar</li>
+            </ul>
+            <h3 class="text-xl font-bold mt-4">Preparación:</h3>
+            <ol class="list-decimal list-inside text-gray-200">
+                <li>Precalienta el horno a 180°C, engrasa molde 20x20 cm.</li>
+                <li>Bate claras con mitad del azúcar a punto de nieve, yemas con resto y vainilla, mezcla con harina.</li>
+                <li>Incorpora claras, hornea 25-30 min, enfría.</li>
+                <li>Vierte mezcla de leches con ron, refrigera 2 h.</li>
+                <li>Bate merengue, cubre y tuesta con soplete.</li>
+            </ol>
+        </div>
+        <div class="modal" id="modal-hawaiano">
+            <span class="modal-close">×</span>
+            <h2 class="text-3xl font-bold mb-4">Pan Hawaiano</h2>
+            <img src="./img/pan-hawaiano.webp" alt="Pan Hawaiano" class="w-full h-48 object-cover mb-4 rounded">
+            <p class="text-gray-200">Dulce y esponjoso con guayaba colombiana.</p>
+            <h3 class="text-xl font-bold mt-4">Ingredientes (12 panecillos):</h3>
+            <ul class="list-disc list-inside text-gray-200">
+                <li>500 g harina de trigo</li>
+                <li>10 g levadura seca</li>
+                <li>100 g azúcar</li>
+                <li>1 cdta sal</li>
+                <li>2 huevos</li>
+                <li>100 ml jugo de piña</li>
+                <li>20 g pulpa de guayaba</li>
+                <li>60 ml leche</li>
+                <li>80 g mantequilla</li>
+                <li>1 cdta vainilla</li>
+            </ul>
+            <h3 class="text-xl font-bold mt-4">Preparación:</h3>
+            <ol class="list-decimal list-inside text-gray-200">
+                <li>Mezcla harina, levadura, azúcar, sal.</li>
+                <li>Combina huevos, jugo, guayaba, leche, vainilla, integra a secos.</li>
+                <li>Amasa con mantequilla 10-15 min, fermenta 2 h.</li>
+                <li>Forma 12 bolas, reposa 45 min, hornea 175°C 25 min.</li>
+            </ol>
+        </div>
+        <div class="modal" id="modal-bunuelo">
+            <span class="modal-close">×</span>
+            <h2 class="text-3xl font-bold mb-4">Buñuelo Relleno De Arequipe</h2>
+            <img src="./img/bunuelo.webp" alt="Buñuelo Relleno De Arequipe" class="w-full h-48 object-cover mb-4 rounded">
+            <p class="text-gray-200">Esponjoso y firme con un corazón de arequipe.</p>
+            <h3 class="text-xl font-bold mt-4">Ingredientes (10 unidades):</h3>
+            <ul class="list-disc list-inside text-gray-200">
+                <li>400 g almidón de yuca</li>
+                <li>200 g queso costeño rallado</li>
+                <li>100 g harina de maíz precocida</li>
+                <li>1 huevo</li>
+                <li>50 ml leche tibia</li>
+                <li>1 cdta sal</li>
+                <li>50 g arequipe (relleno)</li>
+                <li>Aceite para freír</li>
+            </ul>
+            <h3 class="text-xl font-bold mt-4">Preparación:</h3>
+            <ol class="list-decimal list-inside text-gray-200">
+                <li>Mezcla almidón, harina, sal, queso.</li>
+                <li>Añade huevo y leche, amasa hasta homogeneidad.</li>
+                <li>Forma bolas, rellena con 1 cdta de arequipe.</li>
+                <li>Fríe a 170°C 8-10 min hasta dorar.</li>
+                <li>Sirve caliente.</li>
+            </ol>
+        </div>
+        <div class="modal" id="modal-yuca">
+            <span class="modal-close">×</span>
+            <h2 class="text-3xl font-bold mb-4">Pan de Yuca Paisa</h2>
+            <img src="./img/pan-de-yuca.webp" alt="Pan de Yuca Paisa" class="w-full h-48 object-cover mb-4 rounded">
+            <p class="text-gray-200">Compacto con un toque de café antioqueño.</p>
+            <h3 class="text-xl font-bold mt-4">Ingredientes (10 unidades):</h3>
+            <ul class="list-disc list-inside text-gray-200">
+                <li>500 g almidón de yuca</li>
+                <li>250 g queso antioqueño rallado</li>
+                <li>1 huevo</li>
+                <li>50 ml agua tibia + 1 cdta café instantáneo</li>
+                <li>1 cdta sal</li>
+                <li>30 g mantequilla</li>
+            </ul>
+            <h3 class="text-xl font-bold mt-4">Preparación:</h3>
+            <ol class="list-decimal list-inside text-gray-200">
+                <li>Precalienta horno a 210°C, forra bandeja.</li>
+                <li>Mezcla almidón, sal, queso.</li>
+                <li>Añade huevo, agua con café, mantequilla, amasa.</li>
+                <li>Forma 10 piezas, hornea 23 min.</li>
+            </ol>
+        </div>
+        <div class="modal" id="modal-maiz">
+            <span class="modal-close">×</span>
+            <h2 class="text-3xl font-bold mb-4">Pan de Maíz Dulce</h2>
+            <img src="./img/pan-de-maiz.webp" alt="Pan de Maíz Dulce" class="w-full h-48 object-cover mb-4 rounded">
+            <p class="text-gray-200">Esponjoso con panela vallecaucana.</p>
+            <h3 class="text-xl font-bold mt-4">Ingredientes (8 panecillos):</h3>
+            <ul class="list-disc list-inside text-gray-200">
+                <li>300 g harina de maíz fresca</li>
+                <li>200 g harina de trigo</li>
+                <li>80 g azúcar morena</li>
+                <li>20 g panela rallada</li>
+                <li>10 g levadura</li>
+                <li>1 huevo</li>
+                <li>150 ml leche</li>
+                <li>50 g mantequilla</li>
+                <li>1 cdta sal</li>
+                <li>1 cdta vainilla</li>
+            </ul>
+            <h3 class="text-xl font-bold mt-4">Preparación:</h3>
+            <ol class="list-decimal list-inside text-gray-200">
+                <li>Precalienta horno a 180°C, engrasa bandeja.</li>
+                <li>Mezcla harinas, levadura, azúcares, sal.</li>
+                <li>Añade huevo, leche, mantequilla, vainilla, amasa 10 min.</li>
+                <li>Fermenta 1 h, forma 8 panecillos, reposa 30 min.</li>
+                <li>Hornea 25 min.</li>
+            </ol>
+        </div>
+        <div class="modal" id="modal-huevos">
+            <span class="modal-close">×</span>
+            <h2 class="text-3xl font-bold mb-4">Huevos Revueltos con Hogao y Café</h2>
+            <img src="./img/huevos-hogao.webp" alt="Huevos Revueltos con Hogao" class="w-full h-48 object-cover mb-4 rounded">
+            <p class="text-gray-200">Un clásico colombiano elevado con hogao cremoso y café con canela.</p>
+            <h3 class="text-xl font-bold mt-4">Ingredientes (1 porción):</h3>
+            <ul class="list-disc list-inside text-gray-200">
+                <li>Huevos con Hogao: 2 huevos grandes, 1 tomate maduro picado, 1 tallo cebolla larga finamente cortado, 1 cdta mantequilla, sal y pimienta al gusto, 1 pizca comino</li>
+                <li>Café: 200 ml agua caliente, 2 cdas café molido antioqueño, 1/4 cdta canela en polvo</li>
+            </ul>
+            <h3 class="text-xl font-bold mt-4">Preparación:</h3>
+            <ol class="list-decimal list-inside text-gray-200">
+                <li>Sofríe tomate y cebolla en mantequilla 5 min, sazona con sal, pimienta y comino.</li>
+                <li>Bate los huevos, mezcla con el hogao, cocina a fuego bajo 3-4 min hasta cremosos.</li>
+                <li>Hierve agua, añade café y canela, infusiona 4 min, cuela y sirve caliente.</li>
+            </ol>
+        </div>
+        <div class="modal" id="modal-arepa">
+            <span class="modal-close">×</span>
+            <h2 class="text-3xl font-bold mb-4">Arepa de Choclo con Queso y Jugo</h2>
+            <img src="./img/arepa-choclo.webp" alt="Arepa de Choclo con Queso" class="w-full h-48 object-cover mb-4 rounded">
+            <p class="text-gray-200">Dulce y tierna con queso fundido y un jugo tropical.</p>
+            <h3 class="text-xl font-bold mt-4">Ingredientes (1 porción):</h3>
+            <ul class="list-disc list-inside text-gray-200">
+                <li>Arepa: 100 g masa de maíz fresco (Choclo), 1 cdta azúcar, 1 pizca sal, 50 g queso campesino en tajadas, 1 cdta mantequilla</li>
+                <li>Jugo: 2 naranjas grandes (200 ml jugo), 1 cdta pulpa de maracuyá, 1 cdta azúcar (opcional)</li>
+            </ul>
+            <h3 class="text-xl font-bold mt-4">Preparación:</h3>
+            <ol class="list-decimal list-inside text-gray-200">
+                <li>Mezcla masa con azúcar y sal, forma una arepa plana de 1 cm.</li>
+                <li>Cocina en sartén con mantequilla 3-4 min por lado hasta dorar.</li>
+                <li>Corta, rellena con queso, calienta hasta fundir.</li>
+                <li>Exprime naranjas, mezcla con maracuyá, ajusta dulzura, sirve frío.</li>
+            </ol>
+        </div>
+        <div class="modal" id="modal-calentado">
+            <span class="modal-close">×</span>
+            <h2 class="text-3xl font-bold mb-4">Calentado Paisa con Avena</h2>
+            <img src="./img/calentado.webp" alt="Calentado Paisa" class="w-full h-48 object-cover mb-4 rounded">
+            <p class="text-gray-200">Reconfortante con frijoles, chorizo y avena especiada.</p>
+            <h3 class="text-xl font-bold mt-4">Ingredientes (1 porción):</h3>
+            <ul class="list-disc list-inside text-gray-200">
+                <li>Calentado: 100 g frijoles cocidos, 100 g arroz blanco cocido, 1 chorizo pequeño (50 g), 1 cdta mantequilla, 1 huevo frito (opcional), sal al gusto</li>
+                <li>Avena: 200 ml leche, 50 g avena en hojuelas, 20 g panela rallada, 1/4 cdta canela, 1 pizca clavo molido</li>
+            </ul>
+            <h3 class="text-xl font-bold mt-4">Preparación:</h3>
+            <ol class="list-decimal list-inside text-gray-200">
+                <li>Sofríe chorizo en mantequilla, añade frijoles y arroz, calienta 5-7 min, sazona.</li>
+                <li>Sirve con huevo frito encima (opcional).</li>
+                <li>Hierve leche con panela, canela y clavo, añade avena, cocina 10 min hasta espesar, sirve tibia.</li>
+            </ol>
+        </div>
+    </main>
+    <footer class="text-white py-6 px-6 text-center bg-gradient-to-r from-[#5B2A32] to-[#3e1c22] shadow-lg">
+        <p class="font-montserrat text-lg">© 2025 Prisas Pan. Donde el lujo y la tradición se encuentran.</p>
+    </footer>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('particles').appendChild(renderer.domElement);
+        const particleCount = 1000;
+        const particles = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const velocities = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 2000;
+            positions[i + 1] = (Math.random() - 0.5) * 2000;
+            positions[i + 2] = (Math.random() - 0.5) * 2000;
+            velocities[i] = (Math.random() - 0.5) * 2;
+            velocities[i + 1] = (Math.random() - 0.5) * 2;
+            velocities[i + 2] = (Math.random() - 0.5) * 2;
+        }
+        particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particleMaterial = new THREE.PointsMaterial({ color: 0xFFD700, size: 3, transparent: true, opacity: 0.8 });
+        const particleSystem = new THREE.Points(particles, particleMaterial);
+        scene.add(particleSystem);
+        camera.position.z = 1000;
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            const positions = particleSystem.geometry.attributes.position.array;
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i] += velocities[i] * 0.1;
+                positions[i + 1] += velocities[i + 1] * 0.1;
+                positions[i + 2] += velocities[i + 2] * 0.1;
+                if (Math.abs(positions[i]) > 1000) velocities[i] *= -1;
+                if (Math.abs(positions[i + 1]) > 1000) velocities[i + 1] *= -1;
+                if (Math.abs(positions[i + 2]) > 1000) velocities[i + 2] *= -1;
+            }
+            particleSystem.geometry.attributes.position.needsUpdate = true;
+            particleSystem.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        animateParticles();
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const toggle = document.getElementById('menuToggle');
+            menu.classList.toggle('active');
+            toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
+        }
+        const exploreButtons = document.querySelectorAll('.explore-btn');
+        const overlay = document.getElementById('modalOverlay');
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.modal-close');
+        exploreButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modalId = button.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                modal.classList.add('active');
+                overlay.classList.add('active');
+            });
+        });
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modals.forEach(modal => modal.classList.remove('active'));
+                overlay.classList.remove('active');
+            });
+        });
+        overlay.addEventListener('click', () => {
+            modals.forEach(modal => modal.classList.remove('active'));
+            overlay.classList.remove('active');
+        });
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.classList.toggle('active');
+        }
+        const recipes = [
+            { title: 'Pandebono Clásico', id: 'modal-pandebono' },
+            { title: 'Torta Tres Leches', id: 'modal-torta' },
+            { title: 'Pan Hawaiano', id: 'modal-hawaiano' },
+            { title: 'Buñuelo Relleno De Arequipe', id: 'modal-bunuelo' },
+            { title: 'Pan de Yuca Paisa', id: 'modal-yuca' },
+            { title: 'Pan de Maíz Dulce', id: 'modal-maiz' },
+            { title: 'Huevos con Hogao y Café', id: 'modal-huevos' },
+            { title: 'Arepa de Choclo y Jugo', id: 'modal-arepa' },
+            { title: 'Calentado Paisa y Avena', id: 'modal-calentado' }
+        ];
+        function searchRecipes() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const results = document.getElementById('searchResults');
+            results.innerHTML = '';
+            const matches = recipes.filter(recipe => recipe.title.toLowerCase().includes(input));
+            matches.forEach(match => {
+                const div = document.createElement('div');
+                div.className = 'p-2 hover:bg-gray-700 cursor-pointer';
+                div.textContent = match.title;
+                div.onclick = () => {
+                    document.getElementById(match.id).classList.add('active');
+                    document.getElementById('modalOverlay').classList.add('active');
+                    document.getElementById('searchBar').classList.remove('active');
+                };
+                results.appendChild(div);
+            });
+        }
+    </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91cb4eaa1a234532',t:'MTc0MTM2MzI0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>
