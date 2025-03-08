@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://prisaspan.pages.dev/sitemap.xml

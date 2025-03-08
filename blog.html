@@ -3,16 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explora recetas auténticas de panadería artesanal y desayunos de Cali y Medellín en el Blog de Prisas Pan. Buñuelos, pandebonos, calentados y más con un toque de lujo.">
+    <meta name="description" content="Recetas auténticas de panadería artesanal en el Blog de Prisas Pan, Cali. Buñuelos, pandebonos, desayunos colombianos, calentados y más con un toque de lujo.">
     <meta name="keywords" content="panadería artesanal Cali, recetas auténticas Medellín, desayunos colombianos, Prisas Pan, buñuelos caleños, pandebono clásico, pan de yuca paisa, pan de maíz dulce, pan hawaiano guayaba, torta tres leches ron, huevos con hogao, arepa de Choclo, calentado paisa, café colombiano, jugo de naranja maracuyá, avena casera">
     <meta name="author" content="Prisas Pan">
     <meta name="robots" content="index, follow">
-    <title>Blog Prisas Pan - Recetas Auténticas de Cali y Medellín</title>
+    <title>Blog Prisas Pan - Recetas Auténticas de Panadería en Cali y Medellín</title>
     <meta property="og:title" content="Blog Prisas Pan - Recetas Auténticas de Cali y Medellín">
     <meta property="og:description" content="Descubre recetas únicas de panadería artesanal y desayunos de Cali y Medellín: buñuelos, pandebonos, calentados y más con un toque de lujo en Prisas Pan.">
     <meta property="og:image" content="https://prisaspan.pages.dev/img/bunuelo.webp">
     <meta property="og:url" content="https://prisaspan.pages.dev/blog.html">
     <meta property="og:type" content="website">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://prisaspan.pages.dev https://*.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https://prisaspan.pages.dev; connect-src 'self';">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog Prisas Pan",
+  "description": "Recetas auténticas de panadería artesanal y desayunos de Cali y Medellín con un toque de lujo.",
+  "url": "https://prisaspan.pages.dev/blog.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Prisas Pan",
+    "logo": "https://prisaspan.pages.dev/img/logo.svg"
+  },
+  "inLanguage": "es"
+}
+</script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" fetchpriority="high">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" fetchpriority="high">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
@@ -94,7 +110,7 @@
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
             z-index: 2000;
-            max-width: 90%;
+            max-width: 60%;
             max-height: 80vh;
             overflow-y: auto;
             color: #fff;
@@ -152,12 +168,22 @@
                 width: 100%;
                 background: rgba(91, 42, 50, 0.9);
                 flex-direction: column;
+                padding: 0;
+                margin: 0;
             }
             .nav-3d ul.active {
                 display: flex;
             }
+            .nav-3d ul li {
+                width: 100%;
+                text-align: center;
+                padding: 5px 0;
+            }
             .search-bar {
                 width: 90%;
+            }
+            .modal {
+                max-width: 90%;
             }
         }
     </style>
@@ -170,7 +196,7 @@
                 <rect width="100" height="100" fill="#5B2A32"/>
                 <image xlink:href="./img/logo.svg" x="10" y="10" width="80" height="80"/>
             </svg>
-            <h1 class="text-3xl font-bold">Blog Prisas Pan</h1>
+            <h1 class="text-3xl font-bold" style="color: #FFD700;">Blog Prisas Pan</h1>
         </div>
         <button class="md:hidden text-2xl" onclick="toggleMenu()" aria-label="Abrir menú" aria-expanded="false" id="menuToggle">☰</button>
         <ul class="flex space-x-6 hidden md:flex" id="navMenu">
@@ -341,7 +367,7 @@
         <div class="modal" id="modal-bunuelo">
             <span class="modal-close">×</span>
             <h2 class="text-3xl font-bold mb-4">Buñuelo Relleno De Arequipe</h2>
-            <img src="./img/bunuelo.webp" alt="Buñuelo Relleno De Arequipe" class="w-full h-48 object-cover mb-4 rounded">
+            <img src="./img/buñuelo.webp" alt="Buñuelo Relleno De Arequipe" class="w-full h-48 object-cover mb-4 rounded">
             <p class="text-gray-200">Esponjoso y firme con un corazón de arequipe.</p>
             <h3 class="text-xl font-bold mt-4">Ingredientes (10 unidades):</h3>
             <ul class="list-disc list-inside text-gray-200">
@@ -465,9 +491,15 @@
             </ol>
         </div>
     </main>
-    <footer class="text-white py-6 px-6 text-center bg-gradient-to-r from-[#5B2A32] to-[#3e1c22] shadow-lg">
+<footer class="text-white py-6 px-6 text-center bg-gradient-to-r from-[#5B2A32] to-[#3e1c22] shadow-lg">
+    <div class="flex flex-col items-center space-y-2">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-map-marker-alt text-yellow-300"></i>
+            <p class="font-montserrat text-lg">Cr. 34 con Calle 10 #33-105, Cali, Valle del Cauca</p>
+        </div>
         <p class="font-montserrat text-lg">© 2025 Prisas Pan. Donde el lujo y la tradición se encuentran.</p>
-    </footer>
+    </div>
+</footer>
     <script>
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -513,6 +545,22 @@
             menu.classList.toggle('active');
             toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
         }
+        function hideMenu() {
+            const menu = document.getElementById('navMenu');
+            const toggle = document.getElementById('menuToggle');
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+        window.addEventListener('scroll', hideMenu);
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('navMenu');
+            const toggle = document.getElementById('menuToggle');
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                hideMenu();
+            }
+        });
         const exploreButtons = document.querySelectorAll('.explore-btn');
         const overlay = document.getElementById('modalOverlay');
         const modals = document.querySelectorAll('.modal');
@@ -539,6 +587,20 @@
             const searchBar = document.getElementById('searchBar');
             searchBar.classList.toggle('active');
         }
+        function hideSearchBar() {
+            const searchBar = document.getElementById('searchBar');
+            if (searchBar.classList.contains('active')) {
+                searchBar.classList.remove('active');
+            }
+        }
+        window.addEventListener('scroll', hideSearchBar);
+        document.addEventListener('click', (e) => {
+            const searchBar = document.getElementById('searchBar');
+            const exploreBtn = document.getElementById('explore-btn');
+            if (!searchBar.contains(e.target) && !exploreBtn.contains(e.target)) {
+                hideSearchBar();
+            }
+        });
         const recipes = [
             { title: 'Pandebono Clásico', id: 'modal-pandebono' },
             { title: 'Torta Tres Leches', id: 'modal-torta' },
@@ -550,11 +612,14 @@
             { title: 'Arepa de Choclo y Jugo', id: 'modal-arepa' },
             { title: 'Calentado Paisa y Avena', id: 'modal-calentado' }
         ];
+        function normalizeText(text) {
+            return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        }
         function searchRecipes() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
+            const input = normalizeText(document.getElementById('searchInput').value);
             const results = document.getElementById('searchResults');
             results.innerHTML = '';
-            const matches = recipes.filter(recipe => recipe.title.toLowerCase().includes(input));
+            const matches = recipes.filter(recipe => normalizeText(recipe.title).includes(input));
             matches.forEach(match => {
                 const div = document.createElement('div');
                 div.className = 'p-2 hover:bg-gray-700 cursor-pointer';
@@ -569,5 +634,5 @@
         }
     </script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91cb4eaa1a234532',t:'MTc0MTM2MzI0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91d3daed2ac78834',t:'MTc0MTQ1Mjg3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

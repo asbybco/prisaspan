@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Prisas Pan: Panadería y pastelería artesanal de lujo en Cali, Colombia. Sabores únicos y calidad premium desde 1997.">
-    <meta name="keywords" content="panadería artesanal, pastelería de lujo, Prisas Pan, pandebono, buñuelo, pan hawaiano, Cali, Colombia">
+    <meta name="description" content="Prisas Pan: Panadería y pastelería artesanal de lujo en Cali, Colombia. Disfruta de pandebonos, buñuelos y panes calidad premium desde 1997.">
+    <meta name="keywords" content="panadería artesanal Cali, pastelería de lujo, Prisas Pan, pandebono Cali, buñuelo vallecaucano, pan hawaiano, panadería Prisas Pan Cali, Colombia">
     <meta name="author" content="Prisas Pan">
     <meta name="robots" content="index, follow">
     <meta name="google-site-verification" content="qMSyhLZmE0FnO-wlNuhGweEUMWpOIMnJAaBY3Xyrwow" />
     <meta name="msvalidate.01" content="0842AB444B306319735F36D44EFBE952" />
-    <title>Prisas Pan - Panadería y Pastelería Artesanal de Lujo</title>
+    <title>Prisas Pan - Panadería Artesanal de Lujo en Cali, Colombia</title>
     <meta property="og:title" content="Prisas Pan - Sabores Exquisitos de Lujo">
     <meta property="og:description" content="Explora la excelencia de Prisas Pan: panes y pasteles con calidad premium desde 1997 en Cali, Colombia.">
     <meta property="og:image" content="https://prisaspan.pages.dev/img/hero-prisas-pan.webp">
@@ -23,6 +23,7 @@
     <meta name="twitter:title" content="Prisas Pan - Panes y Pasteles de Lujo">
     <meta name="twitter:description" content="Sabores exquisitos únicos en Prisas Pan. Calidad y lujo en cada bocado desde 1997.">
     <meta name="twitter:image" content="https://prisaspan.pages.dev/img/hero-prisas-pan.webp">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://prisaspan.pages.dev https://*.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://elevenlabs.io https://www.google.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' data: https://prisaspan.pages.dev; frame-src https://www.google.com; connect-src 'self' https://elevenlabs.io;">
     <link rel="preload" href="./img/hero-prisas-pan.webp" as="image" fetchpriority="high">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style" fetchpriority="high">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" as="style" fetchpriority="high">
@@ -56,6 +57,7 @@
     </script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" fetchpriority="high">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" fetchpriority="high">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <style>
         @font-face {
             font-family: 'Playfair Display';
@@ -73,18 +75,35 @@
             margin: 0;
             padding: 0;
             position: relative;
-            visibility: hidden; 
+            visibility: hidden;
         }
         body.loaded {
-            visibility: visible; 
+            visibility: visible;
+        }
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
         .animate-fade-in {
-            opacity: 0; 
+            opacity: 0;
             animation: fadeIn 2s ease-in-out forwards;
         }
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(50px); }
             100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-pulse-subtle {
+            animation: pulseSubtle 3s ease-in-out infinite;
+        }
+        @keyframes pulseSubtle {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.95; transform: scale(1.02); }
+            100% { opacity: 1; transform: scale(1); }
         }
         nav {
             background: linear-gradient(to right, #5B2A32, #3e1c22);
@@ -133,6 +152,13 @@
                 left: 0;
                 width: 100%;
                 background: #5B2A32;
+                padding: 0;
+                margin: 0;
+            }
+            nav ul li {
+                width: 100%;
+                text-align: center;
+                padding: 5px 0;
             }
             nav ul.active {
                 display: flex;
@@ -223,6 +249,7 @@
     </style>
 </head>
 <body>
+    <div class="particle-bg" id="particles"></div>
     <nav class="text-white py-4 px-6 flex items-center justify-between shadow-lg" role="navigation">
         <div class="flex items-center">
             <svg width="50" height="50" viewBox="0 0 100 100" class="mr-4" aria-label="Logotipo de Prisas Pan">
@@ -237,7 +264,7 @@
             <li><a href="#sobre-nosotros" class="hover:text-yellow-300 transition text-lg">Sobre Nosotros</a></li>
             <li><a href="#productos" class="hover:text-yellow-300 transition text-lg">Productos</a></li>
             <li><a href="#ubicacion" class="hover:text-yellow-300 transition text-lg">Ubicación</a></li>
-            <li><a href="blog.html" class="hover:text-yellow-300 transition text-lg">Blog</a></li>
+            <li><a href="blog.html" class="hover:text-yellow-300 transition text-lg" target="_blank" rel="noopener noreferrer">Blog</a></li>
         </ul>
     </nav>
     <main>
@@ -255,7 +282,7 @@
                     <img src="./img/sobre-nosotros-2.webp" width="600" height="400" alt="Interior de Prisas Pan 2" class="carousel-image" loading="lazy" aria-label="Segunda imagen del carrusel">
                     <img src="./img/sobre-nosotros-3.webp" width="600" height="400" alt="Interior de Prisas Pan 3" class="carousel-image" loading="lazy" aria-label="Tercera imagen del carrusel">
                 </div>
-                <div class="flex flex-col justify-center">
+                <div class="flex flex-col justify-center items-center text-center">
                     <h3 class="text-3xl font-bold mb-4">Sobre Nosotros</h3>
                     <p class="text-gray-200 font-montserrat text-lg">En Prisas Pan, fusionamos tradición y pasión desde 1997 para ofrecer panes y pasteles únicos. Cada pieza es una obra maestra artesanal, creada con ingredientes de la más alta calidad para deleitar tus sentidos.</p>
                 </div>
@@ -303,8 +330,46 @@
     <footer class="text-white py-6 px-6 text-center">
         <p class="font-montserrat text-lg">© 2025 Prisas Pan. Todos los derechos reservados.</p>
     </footer>
-    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript" fetchpriority="low"></script>
+    <script src="https://elevenlabs.io/convai-widget/index.js" defer type="text/javascript" fetchpriority="low"></script>
     <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('particles').appendChild(renderer.domElement);
+        const particleCount = 1000;
+        const particles = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const velocities = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 2000;
+            positions[i + 1] = (Math.random() - 0.5) * 2000;
+            positions[i + 2] = (Math.random() - 0.5) * 2000;
+            velocities[i] = (Math.random() - 0.5) * 2;
+            velocities[i + 1] = (Math.random() - 0.5) * 2;
+            velocities[i + 2] = (Math.random() - 0.5) * 2;
+        }
+        particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particleMaterial = new THREE.PointsMaterial({ color: 0xFFD700, size: 3, transparent: true, opacity: 0.8 });
+        const particleSystem = new THREE.Points(particles, particleMaterial);
+        scene.add(particleSystem);
+        camera.position.z = 1000;
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            const positions = particleSystem.geometry.attributes.position.array;
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i] += velocities[i] * 0.1;
+                positions[i + 1] += velocities[i + 1] * 0.1;
+                positions[i + 2] += velocities[i + 2] * 0.1;
+                if (Math.abs(positions[i]) > 1000) velocities[i] *= -1;
+                if (Math.abs(positions[i + 1]) > 1000) velocities[i + 1] *= -1;
+                if (Math.abs(positions[i + 2]) > 1000) velocities[i + 2] *= -1;
+            }
+            particleSystem.geometry.attributes.position.needsUpdate = true;
+            particleSystem.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        animateParticles();
         document.addEventListener('DOMContentLoaded', () => {
             const convaiElement = document.getElementById('elevenlabsConvai');
             if (convaiElement.getAttribute('agent-id')) {
@@ -312,18 +377,20 @@
             } else {
                 console.error('Agent ID not set');
             }
-            
             document.body.classList.add('loaded');
             const fadeInElements = document.querySelectorAll('.fade-in-container');
-            fadeInElements.forEach(el => el.classList.add('animate-fade-in'));
+            fadeInElements.forEach(el => {
+                el.classList.add('animate-fade-in');
+                el.addEventListener('animationend', () => {
+                    el.classList.add('animate-pulse-subtle');
+                });
+            });
         });
-
         function toggleMenu() {
             const menu = document.getElementById('navMenu');
             const toggle = document.getElementById('menuToggle');
             menu.classList.toggle('active');
             toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
-            
             if (menu.classList.contains('active')) {
                 setTimeout(() => {
                     if (menu.classList.contains('active')) {
@@ -333,7 +400,6 @@
                 }, 5000);
             }
         }
-        
         window.addEventListener('scroll', () => {
             const menu = document.getElementById('navMenu');
             const toggle = document.getElementById('menuToggle');
@@ -342,7 +408,6 @@
                 toggle.setAttribute('aria-expanded', 'false');
             }
         });
-
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -351,12 +416,10 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
         });
-
         document.querySelectorAll('.product-card').forEach(card => {
             card.addEventListener('mouseenter', () => card.querySelector('.overlay p').style.opacity = '1');
             card.addEventListener('mouseleave', () => card.querySelector('.overlay p').style.opacity = '0');
         });
-
         const carouselImages = document.querySelectorAll('.carousel-image');
         let currentImageIndex = 0;
         let carouselInterval;
@@ -379,11 +442,9 @@
         } else {
             console.error("No se encontraron imágenes en el carrusel.");
         }
-
         const phoneIcon = document.getElementById('phoneIcon');
         const convai = document.getElementById('elevenlabsConvai');
         phoneIcon.addEventListener('click', () => convai.classList.toggle('active'));
-
         function triggerAnimation() {
             phoneIcon.classList.remove('vibrate', 'wave');
             void phoneIcon.offsetWidth;
@@ -393,5 +454,7 @@
         const animationInterval = setInterval(triggerAnimation, 5000);
         window.addEventListener('unload', () => clearInterval(animationInterval));
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91bc724279aebf8b',t:'MTc0MTIwNzQxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91bc724279aebf8b',t:'MTc0MTIwNzQxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91d4254b0b2a1d74',t:'MTc0MTQ1NTkxOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
 </html>
