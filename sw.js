@@ -1,4 +1,3 @@
-// Versión del caché
 const CACHE_NAME = 'prisaspan-v2'; // Actualizado a v2 para reflejar los cambios
 
 // Archivos estáticos a cachear durante la instalación
