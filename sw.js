@@ -1,10 +1,12 @@
 // Versión del caché
-const CACHE_NAME = 'prisaspan-v1';
+const CACHE_NAME = 'prisaspan-v2'; // Actualizado a v2 para reflejar los cambios
+
+// Archivos estáticos a cachear durante la instalación
 const urlsToCache = [
     '/',
     '/index.html',
-    '/css/styles.css', // Si separas el CSS en un archivo externo, ajusta esto
-    '/js/script.js',   // Si separas el JS en un archivo externo, ajusta esto
+    '/css/styles.css', // Ajusta si el CSS está inline o en un archivo separado
+    '/js/script.js',   // Ajusta si el JS está inline o en un archivo separado
     '/img/hero-prisas-pan.webp',
     '/img/logo.svg',
     '/img/icon-192.png',
@@ -46,22 +48,26 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch: Servir desde caché o red
+// Fetch: Servir desde caché o red con stale-while-revalidate
 self.addEventListener('fetch', (event) => {
     event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request).then((networkResponse) => {
-                // Cachear nuevas respuestas dinámicamente
-                if (event.request.method === 'GET') {
-                    return caches.open(CACHE_NAME).then((cache) => {
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.match(event.request).then((cachedResponse) => {
+                const fetchPromise = fetch(event.request).then((networkResponse) => {
+                    if (event.request.method === 'GET' && networkResponse.ok) {
                         cache.put(event.request, networkResponse.clone());
-                        return networkResponse;
-                    });
-                }
-                return networkResponse;
+                    }
+                    return networkResponse;
+                }).catch(() => {
+                    // Si la red falla, devolver la respuesta cacheada si existe
+                    return cachedResponse;
+                });
+
+                // Devolver la respuesta cacheada si existe, o esperar la respuesta de la red
+                return cachedResponse || fetchPromise;
             });
         }).catch(() => {
-            // Fallback offline: Mostrar index.html si falla
+            // Fallback offline: Mostrar index.html si todo falla
             return caches.match('/index.html');
         })
     );
