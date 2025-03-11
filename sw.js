@@ -5,8 +5,8 @@ const CACHE_NAME = 'prisaspan-v2'; // Actualizado a v2 para reflejar los cambios
 const urlsToCache = [
     '/',
     '/index.html',
-    '/css/styles.css', // Ajusta si el CSS está inline o en un archivo separado
-    '/js/script.js',   // Ajusta si el JS está inline o en un archivo separado
+    '/styles.css',
+    '/script.js',
     '/img/hero-prisas-pan.webp',
     '/img/logo.svg',
     '/img/icon-192.png',
