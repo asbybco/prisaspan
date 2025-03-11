@@ -37,6 +37,20 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" as="style" fetchpriority="high">
     <link rel="canonical" href="https://prisaspan.pages.dev/">
     <link rel="manifest" href="/manifest.json">
+
+    <!-- Nuevas adiciones y mejoras -->
+    <link rel="sitemap" href="/sitemap.xml"> <!-- Añadido: Vincula tu sitemap.xml para SEO -->
+    <link rel="icon" href="/img/icon-192.png" type="image/png" sizes="192x192"> <!-- Añadido: Favicon para pestañas del navegador -->
+    <link rel="apple-touch-icon" href="/img/icon-192.png" sizes="192x192"> <!-- Añadido: Ícono para dispositivos Apple -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Añadido: Preconexión para Google Fonts -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com"> <!-- Añadido: Preconexión para Font Awesome -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net"> <!-- Añadido: Preconexión para Tailwind CSS -->
+    <link rel="dns-prefetch" href="https://elevenlabs.io"> <!-- Añadido: Resolución DNS anticipada para ElevenLabs -->
+    <link rel="dns-prefetch" href="https://www.google.com"> <!-- Añadido: Resolución DNS anticipada para Google Maps -->
+    <meta name="theme-color" content="#FFD700" media="(prefers-color-scheme: light)"> <!-- Añadido: Color del navegador en modo claro -->
+    <meta name="theme-color" content="#5B2A32" media="(prefers-color-scheme: dark)"> <!-- Añadido: Color del navegador en modo oscuro -->
+    <!-- Fin de nuevas adiciones -->
+
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -523,10 +537,37 @@
                     });
             });
         }
+
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('PWA lista para instalar');
+            const installButton = document.createElement('button');
+            installButton.textContent = 'Instalar Prisas Pan';
+            installButton.className = 'fixed bottom-10 left-10 bg-yellow-300 text-black p-2 rounded z-50';
+            document.body.appendChild(installButton);
+            installButton.addEventListener('click', () => {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Usuario aceptó instalar la PWA');
+                    } else {
+                        console.log('Usuario rechazó instalar la PWA');
+                    }
+                    deferredPrompt = null;
+                    installButton.remove();
+                });
+            });
+        });
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA instalada con éxito');
+        });
     });
-	</script>
+    </script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91bc724279aebf8b',t:'MTc0MTIwNzQxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91d4254b0b2a1d74',t:'MTc0MTQ1NTkxOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91e64cf929fc6fa4',t:'MTc0MTY0NjI4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91e79903dc75b055',t:'MTc0MTY1OTg4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
