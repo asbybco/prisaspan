@@ -1,0 +1,22 @@
+{
+    "name": "Prisas Pan",
+    "short_name": "Prisas",
+    "description": "Panadería artesanal de lujo en Cali, Colombia. Pandebonos, buñuelos y más desde 1997.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#5B2A32",
+    "theme_color": "#FFD700",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/img/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
