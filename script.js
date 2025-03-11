@@ -4,33 +4,46 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
-        particle.style.left = `${Math.random() * 100}vw`;
-        particle.style.top = `${Math.random() * 100}vh`;
-        const size = 2 + Math.random() * 4;
+        const startX = Math.random() * 100;
+        const startY = Math.random() * 100;
+        particle.style.left = `${startX}vw`;
+        particle.style.top = `${startY}vh`;
+        const size = 2 + Math.random() * 3;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
-        particle.style.setProperty('--tx', `${(Math.random() - 0.5) * 60}vw`);
-        particle.style.setProperty('--ty', `${(Math.random() - 0.5) * 60}vh`);
-        particle.style.setProperty('--ex', `${(Math.random() - 0.5) * 120}vw`);
-        particle.style.setProperty('--ey', `${(Math.random() - 0.5) * 120}vh`);
-        particle.style.animationDuration = `${8 + Math.random() * 6}s`;
-        particle.style.animationDelay = `${Math.random() * 4}s`;
+        const tx = (Math.random() - 0.5) * 50;
+        const ty = (Math.random() - 0.5) * 50;
+        const ex = (Math.random() - 0.5) * 100;
+        const ey = (Math.random() - 0.5) * 100;
+        particle.style.setProperty('--tx', `${tx}vw`);
+        particle.style.setProperty('--ty', `${ty}vh`);
+        particle.style.setProperty('--ex', `${ex}vw`);
+        particle.style.setProperty('--ey', `${ey}vh`);
+        particle.style.animationDuration = `${10 + Math.random() * 5}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
         particleContainer.appendChild(particle);
     }
     const convaiElement = document.getElementById('elevenlabsConvai');
-    if (convaiElement.getAttribute('agent-id')) console.log('Agent ID loaded successfully');
-    else console.error('Agent ID not set');
+    if (convaiElement.getAttribute('agent-id')) {
+        console.log('Agent ID loaded successfully');
+    } else {
+        console.error('Agent ID not set');
+    }
     document.body.classList.add('loaded');
-    document.querySelectorAll('.fade-in-container').forEach(el => {
+    const fadeInElements = document.querySelectorAll('.fade-in-container');
+    fadeInElements.forEach(el => {
         el.classList.add('animate-fade-in');
-        el.addEventListener('animationend', () => el.classList.add('animate-pulse-subtle'));
+        el.addEventListener('animationend', () => {
+            el.classList.add('animate-pulse-subtle');
+        });
     });
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
     menuToggle.addEventListener('click', () => {
         navMenu.classList.toggle('active');
-        menuToggle.setAttribute('aria-expanded', navMenu.classList.contains('active'));
-        if (navMenu.classList.contains('active')) {
+        const isExpanded = navMenu.classList.contains('active');
+        menuToggle.setAttribute('aria-expanded', isExpanded);
+        if (isExpanded) {
             setTimeout(() => {
                 if (navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
@@ -70,9 +83,15 @@ document.addEventListener('DOMContentLoaded', () => {
             currentImageIndex = (currentImageIndex + 1) % carouselImages.length;
             carouselImages[currentImageIndex].classList.add('active');
         }
-        carouselInterval = setInterval(showNextImage, 3000);
-        document.querySelector('.carousel-container').addEventListener('mouseenter', () => clearInterval(carouselInterval));
-        document.querySelector('.carousel-container').addEventListener('mouseleave', () => carouselInterval = setInterval(showNextImage, 3000));
+        function startCarousel() {
+            carouselInterval = setInterval(showNextImage, 3000);
+        }
+        function stopCarousel() {
+            clearInterval(carouselInterval);
+        }
+        startCarousel();
+        document.querySelector('.carousel-container').addEventListener('mouseenter', stopCarousel);
+        document.querySelector('.carousel-container').addEventListener('mouseleave', startCarousel);
     } else {
         console.error("No se encontraron imágenes en el carrusel.");
     }
@@ -85,49 +104,42 @@ document.addEventListener('DOMContentLoaded', () => {
         phoneIcon.classList.add('vibrate', 'wave');
     }
     triggerAnimation();
-    const animationInterval = setInterval(triggerAnimation, 4000);
+    const animationInterval = setInterval(triggerAnimation, 5000);
     window.addEventListener('beforeunload', () => clearInterval(animationInterval));
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/sw.js')
-                .then(registration => console.log('Service Worker registrado con éxito:', registration.scope))
-                .catch(error => console.error('Error al registrar el Service Worker:', error));
+                .then((registration) => {
+                    console.log('Service Worker registrado con éxito:', registration.scope);
+                })
+                .catch((error) => {
+                    console.error('Error al registrar el Service Worker:', error);
+                });
         });
     }
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
+        console.log('PWA lista para instalar');
         const installButton = document.createElement('button');
-        installButton.textContent = 'Instalar App';
-        installButton.className = 'install-button hexagon';
-        document.querySelector('.elevenlabs-widget-container').appendChild(installButton);
-        setTimeout(() => installButton.style.opacity = '1', 1500);
-        setTimeout(() => {
-            installButton.style.animation = 'fadeOut 0.6s ease-out forwards';
-            setTimeout(() => {
-                installButton.style.display = 'none';
-                installButton.style.animation = '';
-            }, 600);
-        }, 11500);
-        setTimeout(() => {
-            installButton.className = 'install-button circle';
-            installButton.style.display = 'block';
-            installButton.style.opacity = '1';
-            setTimeout(() => {
-                installButton.style.animation = 'fadeOut 0.6s ease-out forwards';
-                setTimeout(() => installButton.style.display = 'none', 600);
-            }, 10000);
-        }, 26500);
+        installButton.textContent = 'Instalar Prisas Pan';
+        installButton.className = 'fixed bottom-10 left-10 bg-yellow-300 text-black p-2 rounded z-50';
+        document.body.appendChild(installButton);
         installButton.addEventListener('click', () => {
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') console.log('Usuario aceptó instalar la PWA');
-                else console.log('Usuario rechazó instalar la PWA');
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('Usuario aceptó instalar la PWA');
+                } else {
+                    console.log('Usuario rechazó instalar la PWA');
+                }
                 deferredPrompt = null;
                 installButton.remove();
             });
         });
     });
-    window.addEventListener('appinstalled', () => console.log('PWA instalada con éxito'));
+    window.addEventListener('appinstalled', () => {
+        console.log('PWA instalada con éxito');
+    });
 });
