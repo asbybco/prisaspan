@@ -139,12 +139,6 @@ if (document.body.classList.contains('blog')) {
     }
     animateParticles();
 
-    function toggleMenu() {
-        const menu = document.getElementById('navMenu');
-        const toggle = document.getElementById('menuToggle');
-        menu.classList.toggle('active');
-        toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
-    }
     function hideMenu() {
         const menu = document.getElementById('navMenu');
         const toggle = document.getElementById('menuToggle');
