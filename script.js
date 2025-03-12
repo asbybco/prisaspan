@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     body.classList.add('loaded');
 
+    // Partículas
     const particlesContainer = document.getElementById('particles');
     if (particlesContainer) {
         for (let i = 0; i < 50; i++) {
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Carrusel
     const images = document.querySelectorAll('.carousel-image');
     if (images.length > 0) {
         let currentIndex = 0;
@@ -20,18 +22,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     }
 
+    // Menú hamburguesa con contracción automática
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
+    let menuTimeout;
     if (menuToggle && navMenu) {
+        const hideMenu = () => {
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        };
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             const isExpanded = navMenu.classList.contains('active');
             menuToggle.setAttribute('aria-expanded', isExpanded);
+            if (isExpanded) {
+                clearTimeout(menuTimeout);
+                menuTimeout = setTimeout(hideMenu, 15000); // 15 segundos
+            }
         });
+        window.addEventListener('scroll', hideMenu);
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                hideMenu();
+            }
+        });
+        navMenu.addEventListener('mousemove', () => clearTimeout(menuTimeout));
+        navMenu.addEventListener('touchmove', () => clearTimeout(menuTimeout));
     }
 
+    // Teléfono y efecto en SVG del blog
     const phoneIcon = document.getElementById('phoneIcon');
     const elevenlabsConvai = document.getElementById('elevenlabsConvai');
+    const blogSvg = document.querySelector('.nav-3d svg') || document.querySelector('nav svg');
     if (phoneIcon && elevenlabsConvai) {
         phoneIcon.addEventListener('click', () => {
             elevenlabsConvai.classList.toggle('active');
@@ -41,7 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 800);
         });
     }
+    if (blogSvg) {
+        blogSvg.addEventListener('click', () => {
+            blogSvg.classList.add('vibrate', 'wave');
+            setTimeout(() => {
+                blogSvg.classList.remove('vibrate', 'wave');
+            }, 800);
+        });
+    }
 
+    // Botón de instalación
     let deferredPrompt;
     const widgetContainer = document.querySelector('.elevenlabs-widget-container') || document.body;
     const installBtn = document.createElement('button');
@@ -53,14 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
         installBtn.classList.add('visible');
         setTimeout(() => {
             installBtn.classList.remove('visible');
-        }, 15000); // Visible por 15 segundos
+        }, 15000);
     };
 
     window.addEventListener('load', () => {
         setTimeout(() => {
             showInstallButton();
-            setInterval(showInstallButton, 20000); // Ciclo cada 20 segundos
-        }, 7000); // Aparece tras 7 segundos
+            setInterval(showInstallButton, 20000);
+        }, 7000);
     });
 
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -82,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         installBtn.classList.remove('visible');
     });
 
+    // Blog: Partículas 3D, Modales y Búsqueda
     if (document.body.classList.contains('blog')) {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -152,7 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Modales (restaurado)
         const exploreButtons = document.querySelectorAll('.explore-btn');
         const overlay = document.getElementById('modalOverlay');
         const modals = document.querySelectorAll('.modal');
@@ -176,7 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.classList.remove('active');
         });
 
-        // Búsqueda de recetas (restaurado)
         const recipes = [
             { title: 'Pandebono Clásico', id: 'modal-pandebono' },
             { title: 'Torta Tres Leches', id: 'modal-torta' },
