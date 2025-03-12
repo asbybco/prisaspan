@@ -62,14 +62,22 @@ self.addEventListener('fetch', (event) => {
       if (cachedResponse) {
         return cachedResponse;
       }
+
+      // Realizamos la solicitud a la red
       return fetch(event.request).then((networkResponse) => {
+        // Verificamos si es una solicitud válida para cachear
         if (event.request.method === 'GET' && networkResponse.ok) {
+          // Clonamos la respuesta antes de devolverla
+          const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, networkResponse.clone());
+            cache.put(event.request, responseToCache);
+          }).catch((error) => {
+            console.error('Error al guardar en caché:', error);
           });
         }
         return networkResponse;
       }).catch(() => {
+        // Fallback en caso de fallo de red
         return caches.match('/index.html');
       });
     })
