@@ -1,145 +1,238 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const particleContainer = document.getElementById('particles');
-    const particleCount = window.innerWidth < 768 ? 15 : 50;
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        const startX = Math.random() * 100;
-        const startY = Math.random() * 100;
-        particle.style.left = `${startX}vw`;
-        particle.style.top = `${startY}vh`;
-        const size = 2 + Math.random() * 3;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        const tx = (Math.random() - 0.5) * 50;
-        const ty = (Math.random() - 0.5) * 50;
-        const ex = (Math.random() - 0.5) * 100;
-        const ey = (Math.random() - 0.5) * 100;
-        particle.style.setProperty('--tx', `${tx}vw`);
-        particle.style.setProperty('--ty', `${ty}vh`);
-        particle.style.setProperty('--ex', `${ex}vw`);
-        particle.style.setProperty('--ey', `${ey}vh`);
-        particle.style.animationDuration = `${10 + Math.random() * 5}s`;
-        particle.style.animationDelay = `${Math.random() * 5}s`;
-        particleContainer.appendChild(particle);
+    const body = document.body;
+    body.classList.add('loaded');
+    const particlesContainer = document.getElementById('particles');
+    if (particlesContainer) {
+        for (let i = 0; i < 50; i++) {
+            createParticle(particlesContainer);
+        }
     }
-    const convaiElement = document.getElementById('elevenlabsConvai');
-    if (convaiElement.getAttribute('agent-id')) {
-        console.log('Agent ID loaded successfully');
-    } else {
-        console.error('Agent ID not set');
+    const images = document.querySelectorAll('.carousel-image');
+    if (images.length > 0) {
+        let currentIndex = 0;
+        images[currentIndex].classList.add('active');
+        setInterval(() => {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }, 5000);
     }
-    document.body.classList.add('loaded');
-    const fadeInElements = document.querySelectorAll('.fade-in-container');
-    fadeInElements.forEach(el => {
-        el.classList.add('animate-fade-in');
-        el.addEventListener('animationend', () => {
-            el.classList.add('animate-pulse-subtle');
-        });
-    });
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
-    menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        const isExpanded = navMenu.classList.contains('active');
-        menuToggle.setAttribute('aria-expanded', isExpanded);
-        if (isExpanded) {
-            setTimeout(() => {
-                if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                }
-            }, 10000);
-        }
-    });
-    window.addEventListener('scroll', () => {
-        if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', 'false');
-        }
-    });
-    document.querySelectorAll('#navMenu a').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            const href = anchor.getAttribute('href');
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                navMenu.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-                document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
-            }
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const isExpanded = navMenu.classList.contains('active');
+            menuToggle.setAttribute('aria-expanded', isExpanded);
         });
-    });
-    document.querySelectorAll('.product-card').forEach(card => {
-        card.addEventListener('mouseenter', () => card.querySelector('.overlay p').style.opacity = '1');
-        card.addEventListener('mouseleave', () => card.querySelector('.overlay p').style.opacity = '0');
-    });
-    const carouselImages = document.querySelectorAll('.carousel-image');
-    let currentImageIndex = 0;
-    let carouselInterval;
-    if (carouselImages.length > 0) {
-        carouselImages[0].classList.add('active');
-        function showNextImage() {
-            carouselImages[currentImageIndex].classList.remove('active');
-            currentImageIndex = (currentImageIndex + 1) % carouselImages.length;
-            carouselImages[currentImageIndex].classList.add('active');
-        }
-        function startCarousel() {
-            carouselInterval = setInterval(showNextImage, 3000);
-        }
-        function stopCarousel() {
-            clearInterval(carouselInterval);
-        }
-        startCarousel();
-        document.querySelector('.carousel-container').addEventListener('mouseenter', stopCarousel);
-        document.querySelector('.carousel-container').addEventListener('mouseleave', startCarousel);
-    } else {
-        console.error("No se encontraron imágenes en el carrusel.");
     }
     const phoneIcon = document.getElementById('phoneIcon');
-    const convai = document.getElementById('elevenlabsConvai');
-    phoneIcon.addEventListener('click', () => convai.classList.toggle('active'));
-    function triggerAnimation() {
-        phoneIcon.classList.remove('vibrate', 'wave');
-        void phoneIcon.offsetWidth;
-        phoneIcon.classList.add('vibrate', 'wave');
-    }
-    triggerAnimation();
-    const animationInterval = setInterval(triggerAnimation, 5000);
-    window.addEventListener('beforeunload', () => clearInterval(animationInterval));
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
-                .then((registration) => {
-                    console.log('Service Worker registrado con éxito:', registration.scope);
-                })
-                .catch((error) => {
-                    console.error('Error al registrar el Service Worker:', error);
-                });
+    const elevenlabsConvai = document.getElementById('elevenlabsConvai');
+    if (phoneIcon && elevenlabsConvai) {
+        phoneIcon.addEventListener('click', () => {
+            elevenlabsConvai.classList.toggle('active');
+            phoneIcon.classList.add('vibrate');
+            phoneIcon.classList.add('wave');
+            setTimeout(() => {
+                phoneIcon.classList.remove('vibrate');
+                phoneIcon.classList.remove('wave');
+            }, 800);
         });
     }
     let deferredPrompt;
+    const installBtn = document.createElement('button');
+    installBtn.textContent = 'Instalar';
+    installBtn.className = 'install-btn';
+    const widgetContainer = document.querySelector('.elevenlabs-widget-container');
+    if (widgetContainer) {
+        widgetContainer.appendChild(installBtn);
+    }
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        console.log('PWA lista para instalar');
-        const installButton = document.createElement('button');
-        installButton.textContent = 'Instalar Prisas Pan';
-        installButton.className = 'fixed bottom-10 left-10 bg-yellow-300 text-black p-2 rounded z-50';
-        document.body.appendChild(installButton);
-        installButton.addEventListener('click', () => {
+        installBtn.classList.add('visible');
+        setTimeout(() => {
+            installBtn.classList.remove('visible');
+        }, 5000);
+    });
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
             deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('Usuario aceptó instalar la PWA');
-                } else {
-                    console.log('Usuario rechazó instalar la PWA');
-                }
-                deferredPrompt = null;
-                installButton.remove();
-            });
-        });
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                console.log('Usuario aceptó instalar la PWA');
+            } else {
+                console.log('Usuario rechazó instalar la PWA');
+            }
+            deferredPrompt = null;
+            installBtn.classList.remove('visible');
+        }
     });
     window.addEventListener('appinstalled', () => {
-        console.log('PWA instalada con éxito');
+        console.log('PWA instalada');
+        installBtn.classList.remove('visible');
     });
 });
+
+function createParticle(container) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    const size = Math.random() * 5 + 2;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${Math.random() * 100}vw`;
+    particle.style.top = `${Math.random() * 100}vh`;
+    const tx = (Math.random() - 0.5) * 200;
+    const ty = (Math.random() - 0.5) * 200;
+    const ex = (Math.random() - 0.5) * 100;
+    const ey = (Math.random() - 0.5) * 100;
+    particle.style.setProperty('--tx', `${tx}px`);
+    particle.style.setProperty('--ty', `${ty}px`);
+    particle.style.setProperty('--ex', `${ex}px`);
+    particle.style.setProperty('--ey', `${ey}px`);
+    particle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+    container.appendChild(particle);
+    particle.addEventListener('animationend', () => {
+        particle.remove();
+        createParticle(container);
+    });
+}
+
+// JS movido desde blog.html
+if (document.body.classList.contains('blog')) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('particles').appendChild(renderer.domElement);
+    const particleCount = 1000;
+    const particles = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const velocities = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount * 3; i += 3) {
+        positions[i] = (Math.random() - 0.5) * 2000;
+        positions[i + 1] = (Math.random() - 0.5) * 2000;
+        positions[i + 2] = (Math.random() - 0.5) * 2000;
+        velocities[i] = (Math.random() - 0.5) * 2;
+        velocities[i + 1] = (Math.random() - 0.5) * 2;
+        velocities[i + 2] = (Math.random() - 0.5) * 2;
+    }
+    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particleMaterial = new THREE.PointsMaterial({ color: 0xFFD700, size: 3, transparent: true, opacity: 0.8 });
+    const particleSystem = new THREE.Points(particles, particleMaterial);
+    scene.add(particleSystem);
+    camera.position.z = 1000;
+    function animateParticles() {
+        requestAnimationFrame(animateParticles);
+        const positions = particleSystem.geometry.attributes.position.array;
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] += velocities[i] * 0.1;
+            positions[i + 1] += velocities[i + 1] * 0.1;
+            positions[i + 2] += velocities[i + 2] * 0.1;
+            if (Math.abs(positions[i]) > 1000) velocities[i] *= -1;
+            if (Math.abs(positions[i + 1]) > 1000) velocities[i + 1] *= -1;
+            if (Math.abs(positions[i + 2]) > 1000) velocities[i + 2] *= -1;
+        }
+        particleSystem.geometry.attributes.position.needsUpdate = true;
+        particleSystem.rotation.y += 0.001;
+        renderer.render(scene, camera);
+    }
+    animateParticles();
+
+    function toggleMenu() {
+        const menu = document.getElementById('navMenu');
+        const toggle = document.getElementById('menuToggle');
+        menu.classList.toggle('active');
+        toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
+    }
+    function hideMenu() {
+        const menu = document.getElementById('navMenu');
+        const toggle = document.getElementById('menuToggle');
+        if (menu.classList.contains('active')) {
+            menu.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+    }
+    window.addEventListener('scroll', hideMenu);
+    document.addEventListener('click', (e) => {
+        const menu = document.getElementById('navMenu');
+        const toggle = document.getElementById('menuToggle');
+        if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+            hideMenu();
+        }
+    });
+
+    const exploreButtons = document.querySelectorAll('.explore-btn');
+    const overlay = document.getElementById('modalOverlay');
+    const modals = document.querySelectorAll('.modal');
+    const closeButtons = document.querySelectorAll('.modal-close');
+    exploreButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal');
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+            overlay.classList.add('active');
+        });
+    });
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            modals.forEach(modal => modal.classList.remove('active'));
+            overlay.classList.remove('active');
+        });
+    });
+    overlay.addEventListener('click', () => {
+        modals.forEach(modal => modal.classList.remove('active'));
+        overlay.classList.remove('active');
+    });
+
+    function toggleSearch() {
+        const searchBar = document.getElementById('searchBar');
+        searchBar.classList.toggle('active');
+    }
+    function hideSearchBar() {
+        const searchBar = document.getElementById('searchBar');
+        if (searchBar.classList.contains('active')) {
+            searchBar.classList.remove('active');
+        }
+    }
+    window.addEventListener('scroll', hideSearchBar);
+    document.addEventListener('click', (e) => {
+        const searchBar = document.getElementById('searchBar');
+        const exploreBtn = document.getElementById('explore-btn');
+        if (!searchBar.contains(e.target) && !exploreBtn.contains(e.target)) {
+            hideSearchBar();
+        }
+    });
+
+    const recipes = [
+        { title: 'Pandebono Clásico', id: 'modal-pandebono' },
+        { title: 'Torta Tres Leches', id: 'modal-torta' },
+        { title: 'Pan Hawaiano', id: 'modal-hawaiano' },
+        { title: 'Buñuelo Relleno De Arequipe', id: 'modal-bunuelo' },
+        { title: 'Pan de Yuca Paisa', id: 'modal-yuca' },
+        { title: 'Pan de Maíz Dulce', id: 'modal-maiz' },
+        { title: 'Huevos con Hogao y Café', id: 'modal-huevos' },
+        { title: 'Arepa de Choclo y Jugo', id: 'modal-arepa' },
+        { title: 'Calentado Paisa y Avena', id: 'modal-calentado' }
+    ];
+    function normalizeText(text) {
+        return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    }
+    function searchRecipes() {
+        const input = normalizeText(document.getElementById('searchInput').value);
+        const results = document.getElementById('searchResults');
+        results.innerHTML = '';
+        const matches = recipes.filter(recipe => normalizeText(recipe.title).includes(input));
+        matches.forEach(match => {
+            const div = document.createElement('div');
+            div.className = 'p-2 hover:bg-gray-700 cursor-pointer';
+            div.textContent = match.title;
+            div.onclick = () => {
+                document.getElementById(match.id).classList.add('active');
+                document.getElementById('modalOverlay').classList.add('active');
+                document.getElementById('searchBar').classList.remove('active');
+            };
+            results.appendChild(div);
+        });
+    }
+}

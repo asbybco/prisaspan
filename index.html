@@ -27,6 +27,18 @@
     <link rel="preload" href="./img/hero-prisas-pan.webp" as="image" fetchpriority="high">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style" fetchpriority="high">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" as="style" fetchpriority="high">
+    <link rel="preload" href="/styles.css" as="style" fetchpriority="high">
+    <link rel="preload" href="/script.js" as="script" fetchpriority="high">
+    <link rel="preload" href="/img/logo.svg" as="image" fetchpriority="high">
+    <link rel="preload" href="/img/icon-192.png" as="image" fetchpriority="high">
+    <link rel="preload" href="/img/icon-512.png" as="image" fetchpriority="high">
+    <link rel="preload" href="/img/sobre-nosotros-1.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="/img/sobre-nosotros-2.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="/img/sobre-nosotros-3.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="/img/pan-hawaiano-prisas-pan.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="/img/torta-tres-leches-prisas-pan.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="/img/pan-queso-prisas-pan.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="/img/pan-maiz-prisas-pan.webp" as="image" fetchpriority="high">
     <link rel="canonical" href="https://prisaspan.pages.dev/">
     <link rel="manifest" href="/manifest.json">
     <link rel="sitemap" href="/sitemap.xml">
@@ -40,10 +52,10 @@
     <meta name="theme-color" content="#FFD700" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#5B2A32" media="(prefers-color-scheme: dark)">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Bakery","name":"Prisas Pan","description":"Panadería y pastelería artesanal de lujo con sabores únicos y calidad premium en Cali, Colombia.","url":"https://prisaspan.pages.dev","image":"https://prisaspan.pages.dev/img/hero-prisas-pan.webp","address":{"@type":"PostalAddress","streetAddress":"Carrera 34 Calle 10 #33-105","addressLocality":"Cali","addressRegion":"Valle del Cauca","addressCountry":"CO"},"geo":{"@type":"GeoCoordinates","latitude":"3.424791","longitude":"-76.536234"},"openingHours":"Mo-Su 06:00-19:00","foundingDate":"1997-07-03","founder":{"@type":"Person","name":"Omar de la Cruz"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Pan Hawaiano","image":"https://prisaspan.pages.dev/img/producto-destacado-1.webp","description":"Pan artesanal hawaiano con ingredientes premium."}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Torta Tres Leches","image":"https://prisaspan.pages.dev/img/producto-destacado-2.webp","description":"Torta artesanal tres leches con calidad de lujo."}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Pan de Queso","image":"https://prisaspan.pages.dev/img/producto-destacado-3.webp","description":"Pan de queso vallecaucano artesanal."}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Pan de Maíz","image":"https://prisaspan.pages.dev/img/producto-destacado-4.webp","description":"Pan de maíz artesanal con sabor único."}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Pan Hawaiano","image":"https://prisaspan.pages.dev/img/pan-hawaiano-prisas-pan.webp","description":"Pan artesanal hawaiano con ingredientes premium."}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Torta Tres Leches","image":"https://prisaspan.pages.dev/img/torta-tres-leches-prisas-pan.webp","description":"Torta artesanal tres leches con calidad de lujo."}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Pan de Queso","image":"https://prisaspan.pages.dev/img/pan-queso-prisas-pan.webp","description":"Pan de queso vallecaucano artesanal."}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Pan de Maíz","image":"https://prisaspan.pages.dev/img/pan-maiz-prisas-pan.webp","description":"Pan de maíz artesanal con sabor único."}</script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" fetchpriority="high">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" fetchpriority="high">
     <link rel="stylesheet" href="/styles.css">
@@ -78,9 +90,9 @@
         <section id="sobre-nosotros" class="py-8 px-4 max-w-6xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                 <div class="rounded-lg shadow-lg transform hover:scale-105 transition duration-500 carousel-container" role="region" aria-label="Carrusel de imágenes" aria-live="polite">
-                    <img src="./img/sobre-nosotros-1.webp" width="600" height="400" alt="Interior de la panadería Prisas Pan en Cali" class="carousel-image active" ">
-                    <img src="./img/sobre-nosotros-2.webp" width="600" height="400" alt="Horno artesanal de Prisas Pan" class="carousel-image" ">
-                    <img src="./img/sobre-nosotros-3.webp" width="600" height="400" alt="Preparación de panes en Prisas Pan" class="carousel-image" ">
+                    <img src="./img/sobre-nosotros-1.webp" width="600" height="400" alt="Interior de la panadería Prisas Pan en Cali" class="carousel-image active">
+                    <img src="./img/sobre-nosotros-2.webp" width="600" height="400" alt="Horno artesanal de Prisas Pan" class="carousel-image">
+                    <img src="./img/sobre-nosotros-3.webp" width="600" height="400" alt="Preparación de panes en Prisas Pan" class="carousel-image">
                 </div>
                 <div class="flex flex-col justify-center items-center text-center">
                     <h3 class="text-3xl font-bold mb-4">Sobre Nosotros</h3>
@@ -96,25 +108,25 @@
             <h3 class="text-3xl font-bold text-center mb-8">Productos Destacados</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
-                    <img src="./img/producto-destacado-1.webp" width="400" height="300" alt="Pan Hawaiano artesanal de Prisas Pan en Cali" class="w-full min-h-48 object-contain" ">
+                    <img src="./img/pan-hawaiano-prisas-pan.webp" width="400" height="300" alt="Pan Hawaiano artesanal de Prisas Pan en Cali" class="w-full min-h-48 object-contain">
                     <div class="overlay absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
                         <p class="text-white text-xl font-montserrat opacity-0 transition duration-300">Pan Hawaiano</p>
                     </div>
                 </div>
                 <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
-                    <img src="./img/producto-destacado-2.webp" width="400" height="300" alt="Torta Tres Leches de lujo de Prisas Pan" class="w-full min-h-48 object-contain" ">
+                    <img src="./img/torta-tres-leches-prisas-pan.webp" width="400" height="300" alt="Torta Tres Leches de lujo de Prisas Pan" class="w-full min-h-48 object-contain">
                     <div class="overlay absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
                         <p class="text-white text-xl font-montserrat opacity-0 transition duration-300">Torta Tres Leches</p>
                     </div>
                 </div>
                 <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
-                    <img src="./img/producto-destacado-3.webp" width="400" height="300" alt="Pan de Queso vallecaucano de Prisas Pan" class="w-full min-h-48 object-contain" ">
+                    <img src="./img/pan-queso-prisas-pan.webp" width="400" height="300" alt="Pan de Queso vallecaucano de Prisas Pan" class="w-full min-h-48 object-contain">
                     <div class="overlay absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
                         <p class="text-white text-xl font-montserrat opacity-0 transition duration-300">Pan de Queso</p>
                     </div>
                 </div>
                 <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
-                    <img src="./img/producto-destacado-4.webp" width="400" height="300" alt="Pan de Maíz artesanal de Prisas Pan" class="w-full min-h-48 object-contain" ">
+                    <img src="./img/pan-maiz-prisas-pan.webp" width="400" height="300" alt="Pan de Maíz artesanal de Prisas Pan" class="w-full min-h-48 object-contain">
                     <div class="overlay absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
                         <p class="text-white text-xl font-montserrat opacity-0 transition duration-300">Pan de Maíz</p>
                     </div>
@@ -123,7 +135,7 @@
         </section>
         <section id="ubicacion" class="py-8 px-4 max-w-6xl mx-auto">
             <h3 class="text-3xl font-bold text-center mb-8">Encuéntranos</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.69279714188!2d-76.5362345274567!3d3.4247912514014525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a696308a0017%3A0xe016b3d3439b6190!2sprisas%20pan!5e0!3m2!1ses-419!2sco!4v1740958105291!5m2!1ses-419!2sco" width="100%" height="400" style="border:0;border-radius:20px;" allowfullscreen="" " referrerpolicy="no-referrer-when-downgrade" class="shadow-lg" title="Ubicación de Prisas Pan en Cali"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.69279714188!2d-76.5362345274567!3d3.4247912514014525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a696308a0017%3A0xe016b3d3439b6190!2sprisas%20pan!5e0!3m2!1ses-419!2sco!4v1740958105291!5m2!1ses-419!2sco" width="100%" height="400" style="border:0;border-radius:20px;" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade" class="shadow-lg" title="Ubicación de Prisas Pan en Cali"></iframe>
         </section>
     </main>
     <div class="elevenlabs-widget-container">
