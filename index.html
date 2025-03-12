@@ -25,13 +25,11 @@
     <meta name="twitter:image" content="https://prisaspan.pages.dev/img/hero-prisas-pan.webp">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://prisaspan.pages.dev https://*.cloudflare.com;script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://elevenlabs.io https://www.google.com https://*.cloudflare.com https://prisaspan.pages.dev/cdn-cgi/challenge-platform/*;style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com;img-src 'self' https://prisaspan.pages.dev https://storage.googleapis.com;frame-src 'self' https://www.google.com;font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com;connect-src 'self' https://elevenlabs.io https://api.us.elevenlabs.io https://*.cloudflare.com;">
     <link rel="preload" href="./img/hero-prisas-pan.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style" fetchpriority="high">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" as="style" fetchpriority="high">
-    <link rel="preload" href="/styles.css" as="style" fetchpriority="high">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style" fetchpriority="high" onload="this.rel='stylesheet'">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" as="style" fetchpriority="high" onload="this.rel='stylesheet'">
+    <link rel="preload" href="/styles.css" as="style" fetchpriority="high" onload="this.rel='stylesheet'">
     <link rel="preload" href="/script.js" as="script" fetchpriority="high">
     <link rel="preload" href="/img/logo.svg" as="image" fetchpriority="high">
-    <link rel="preload" href="/img/icon-192.png" as="image" fetchpriority="high">
-    <link rel="preload" href="/img/icon-512.png" as="image" fetchpriority="high">
     <link rel="preload" href="/img/sobre-nosotros-1.webp" as="image" fetchpriority="high">
     <link rel="preload" href="/img/sobre-nosotros-2.webp" as="image" fetchpriority="high">
     <link rel="preload" href="/img/sobre-nosotros-3.webp" as="image" fetchpriority="high">
@@ -39,6 +37,7 @@
     <link rel="preload" href="/img/torta-tres-leches-prisas-pan.webp" as="image" fetchpriority="high">
     <link rel="preload" href="/img/pan-queso-prisas-pan.webp" as="image" fetchpriority="high">
     <link rel="preload" href="/img/pan-maiz-prisas-pan.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous" fetchpriority="high">
     <link rel="canonical" href="https://prisaspan.pages.dev/">
     <link rel="manifest" href="/manifest.json">
     <link rel="sitemap" href="/sitemap.xml">
@@ -105,38 +104,34 @@
             </div>
         </section>
         <section id="productos" class="py-8 px-4 max-w-6xl mx-auto">
-            <h3 class="text-3xl font-bold text-center mb-8">Productos Destacados</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
-                    <img src="./img/pan-hawaiano-prisas-pan.webp" width="400" height="300" alt="Pan Hawaiano artesanal de Prisas Pan en Cali" class="w-full min-h-48 object-contain">
-                    <div class="overlay absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
-                        <p class="text-white text-xl font-montserrat opacity-0 transition duration-300">Pan Hawaiano</p>
-                    </div>
-                </div>
-                <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
-                    <img src="./img/torta-tres-leches-prisas-pan.webp" width="400" height="300" alt="Torta Tres Leches de lujo de Prisas Pan" class="w-full min-h-48 object-contain">
-                    <div class="overlay absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
-                        <p class="text-white text-xl font-montserrat opacity-0 transition duration-300">Torta Tres Leches</p>
-                    </div>
-                </div>
-                <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
-                    <img src="./img/pan-queso-prisas-pan.webp" width="400" height="300" alt="Pan de Queso vallecaucano de Prisas Pan" class="w-full min-h-48 object-contain">
-                    <div class="overlay absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
-                        <p class="text-white text-xl font-montserrat opacity-0 transition duration-300">Pan de Queso</p>
-                    </div>
-                </div>
-                <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
-                    <img src="./img/pan-maiz-prisas-pan.webp" width="400" height="300" alt="Pan de Maíz artesanal de Prisas Pan" class="w-full min-h-48 object-contain">
-                    <div class="overlay absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
-                        <p class="text-white text-xl font-montserrat opacity-0 transition duration-300">Pan de Maíz</p>
-                    </div>
-                </div>
+    <h3 class="text-3xl font-bold text-center mb-8">Productos Destacados</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
+            <img src="./img/pan-hawaiano-prisas-pan.webp" width="400" height="300" alt="Pan Hawaiano artesanal de Prisas Pan en Cali" class="w-full h-64 object-cover">
+            <div class="overlay">
+                <span>Pan Hawaiano</span>
             </div>
-        </section>
-        <section id="ubicacion" class="py-8 px-4 max-w-6xl mx-auto">
-            <h3 class="text-3xl font-bold text-center mb-8">Encuéntranos</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.69279714188!2d-76.5362345274567!3d3.4247912514014525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a696308a0017%3A0xe016b3d3439b6190!2sprisas%20pan!5e0!3m2!1ses-419!2sco!4v1740958105291!5m2!1ses-419!2sco" width="100%" height="400" style="border:0;border-radius:20px;" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade" class="shadow-lg" title="Ubicación de Prisas Pan en Cali"></iframe>
-        </section>
+        </div>
+        <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
+            <img src="./img/torta-tres-leches-prisas-pan.webp" width="400" height="300" alt="Torta Tres Leches de lujo de Prisas Pan" class="w-full h-64 object-cover">
+            <div class="overlay">
+                <span>Torta Tres Leches</span>
+            </div>
+        </div>
+        <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
+            <img src="./img/pan-queso-prisas-pan.webp" width="400" height="300" alt="Pan de Queso vallecaucano de Prisas Pan" class="w-full h-64 object-cover">
+            <div class="overlay">
+                <span>Pan de Queso</span>
+            </div>
+        </div>
+        <div class="product-card relative rounded-lg shadow-lg overflow-hidden">
+            <img src="./img/pan-maiz-prisas-pan.webp" width="400" height="300" alt="Pan de Maíz artesanal de Prisas Pan" class="w-full h-64 object-cover">
+            <div class="overlay">
+                <span>Pan de Maíz</span>
+            </div>
+        </div>
+    </div>
+</section>
     </main>
     <div class="elevenlabs-widget-container">
         <i class="fas fa-phone-alt phone-icon" id="phoneIcon" aria-label="Habla con nuestro asistente"></i>

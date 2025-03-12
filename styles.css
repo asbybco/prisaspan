@@ -95,7 +95,7 @@ nav {
     cursor: pointer;
     opacity: 0;
     transform: translateY(100%);
-    transition: all 0.8s ease;
+    transition: all 1.2s ease;
     z-index: 1100;
     display: flex;
     align-items: center;
@@ -210,13 +210,49 @@ section {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.product-card:hover .overlay {
-    background: rgba(91, 42, 50, 0.8);
-    transform: scale(1.05);
+.product-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    background: rgba(62, 28, 34, 0.8);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-.overlay {
-    transition: all 0.5s ease;
+.product-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+}
+
+.product-card .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(91, 42, 50, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-card:hover .overlay {
+    opacity: 1;
+}
+
+.product-card .overlay span {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .overlay span {
+    opacity: 1;
 }
 
 footer {

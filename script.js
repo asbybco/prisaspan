@@ -88,8 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', () => {
         setTimeout(() => {
             showInstallButton();
-            setInterval(showInstallButton, 20000);
-        }, 7000);
+            setInterval(showInstallButton, 30000);
+        }, 15000);
     });
 
     window.addEventListener('beforeinstallprompt', (e) => {
