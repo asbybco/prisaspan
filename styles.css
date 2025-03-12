@@ -47,6 +47,10 @@ body.loaded {
     50% { opacity: 0.95; transform: scale(1.02); }
     100% { opacity: 1; transform: scale(1); }
 }
+.animate-pulse-subtle-delayed {
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards, pulseSubtle 3s ease-in-out infinite 2s;
+}
 nav {
     background: linear-gradient(to right, #5B2A32, #3e1c22);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
