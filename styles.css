@@ -1,5 +1,12 @@
+/* Variables CSS para optimización y consistencia */
+:root {
+    --primary-color: #FFD700; /* Color principal */
+    --secondary-color: #5B2A32; /* Fondo secundario */
+    --transition-smooth: all 0.5s ease; /* Transición suave */
+}
+
 body {
-    background: linear-gradient(135deg, #2a1518, #5B2A32);
+    background: linear-gradient(135deg, #2a1518, var(--secondary-color));
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -9,6 +16,8 @@ body {
 body.loaded {
     visibility: visible;
 }
+
+/* Fondo de partículas (sin cambios) */
 .particle-bg {
     position: fixed;
     top: 0;
@@ -21,7 +30,7 @@ body.loaded {
 }
 .particle {
     position: absolute;
-    background: #FFD700;
+    background: var(--primary-color);
     border-radius: 50%;
     opacity: 0.8;
     animation: floatAndExplode linear infinite;
@@ -31,6 +40,8 @@ body.loaded {
     70% { transform: translate(var(--tx), var(--ty)) scale(1.2); opacity: 0.5; }
     100% { transform: translate(var(--ex), var(--ey)) scale(0.5); opacity: 0; }
 }
+
+/* Animaciones existentes (sin cambios) */
 .animate-fade-in {
     opacity: 0;
     animation: fadeIn 2s ease-in-out forwards;
@@ -51,8 +62,10 @@ body.loaded {
     opacity: 0;
     animation: fadeIn 2s ease-in-out forwards, pulseSubtle 3s ease-in-out infinite 2s;
 }
+
+/* Navegación (sin cambios) */
 nav {
-    background: linear-gradient(to right, #5B2A32, #3e1c22);
+    background: linear-gradient(to right, var(--secondary-color), #3e1c22);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     position: sticky;
     top: 0;
@@ -63,6 +76,82 @@ nav {
     justify-content: space-between;
     align-items: center;
 }
+
+/* Estilos del botón de instalación (actualizado) */
+.install-btn {
+    position: absolute;
+    bottom: 20px; /* Posición final */
+    right: 10px;
+    width: 120px; /* Ancho rectangular */
+    height: 40px; /* Alto rectangular */
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    border-radius: 5px; /* Esquinas suaves, no circular */
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(100%); /* Empieza fuera de la pantalla */
+    transition: var(--transition-smooth); /* Transición suave para entrada/salida */
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.install-btn.visible {
+    opacity: 1;
+    transform: translateY(0); /* Sube a su posición */
+    animation: pulseSubtle 3s ease-in-out infinite; /* Efecto de palpitación */
+}
+.install-btn:hover {
+    background: #FFFF99;
+    transform: scale(1.1); /* Efecto hover ajustado */
+}
+
+/* Estilos del blog (actualizados) */
+body.blog {
+    background: linear-gradient(135deg, #1A0F11, var(--secondary-color));
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-color);
+}
+
+/* Grid de recetas más amplio */
+#blog {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr)); /* 1 columna en móviles */
+    gap: 2rem; /* Espacio entre tarjetas */
+}
+@media (min-width: 768px) {
+    #blog {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columnas en pantallas medianas y grandes */
+    }
+}
+
+/* Modal más ancho */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(62, 28, 34, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    z-index: 2000;
+    width: 800px; /* Ancho fijo */
+    max-width: 90%; /* Límite máximo */
+    max-height: 80vh;
+    overflow-y: auto;
+    color: #fff;
+}
+.modal.active {
+    display: block;
+}
+
+/* Resto del CSS sin cambios relevantes */
 nav svg {
     transition: transform 0.3s ease;
 }
@@ -96,7 +185,7 @@ nav .menu-toggle {
     cursor: pointer;
 }
 h1, h2, h3 {
-    color: #FFD700;
+    color: var(--primary-color);
     text-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
     font-family: 'Playfair Display', serif;
 }
@@ -116,7 +205,7 @@ section {
     transition: all 0.5s ease;
 }
 footer {
-    background: linear-gradient(to right, #5B2A32, #3e1c22);
+    background: linear-gradient(to right, var(--secondary-color), #3e1c22);
     box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.5);
 }
 #inicio img {
@@ -133,7 +222,7 @@ footer {
         top: 100%;
         left: 0;
         width: 100%;
-        background: #5B2A32;
+        background: var(--secondary-color);
         padding: 0;
         margin: 0;
         gap: 0;
@@ -195,7 +284,7 @@ footer {
 }
 .phone-icon {
     font-size: 40px;
-    color: #FFD700;
+    color: var(--primary-color);
     cursor: pointer;
     position: relative;
 }
@@ -210,7 +299,7 @@ footer {
     width: 60px;
     height: 60px;
     background: transparent;
-    border: 2px solid #FFD700;
+    border: 2px solid var(--primary-color);
     border-radius: 50%;
     transform: translate(-50%, -50%) scale(0);
     opacity: 0;
@@ -238,41 +327,6 @@ footer {
 .elevenlabs-convai div[style*="text-align: center"] {
     font-size: 8px !important;
     line-height: 8px !important;
-}
-.install-btn {
-    position: absolute;
-    top: -40px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    background: #FFD700;
-    color: #5B2A32;
-    border-radius: 50%;
-    border: none;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    z-index: 1100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-.install-btn.visible {
-    opacity: 1;
-}
-.install-btn:hover {
-    background: #FFFF99;
-    transform: scale(1.1);
-    transition: all 0.3s ease;
-}
-/* Estilos movidos desde blog.html */
-body.blog {
-    background: linear-gradient(135deg, #1A0F11, #5B2A32);
-    font-family: 'Montserrat', sans-serif;
-    color: #FFD700;
 }
 .nav-3d {
     position: fixed;
@@ -319,31 +373,12 @@ body.blog {
     position: relative;
     z-index: 2;
 }
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(62, 28, 34, 0.95);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-    z-index: 2000;
-    max-width: 80%;
-    max-height: 80vh;
-    overflow-y: auto;
-    color: #fff;
-}
-.modal.active {
-    display: block;
-}
 .modal-close {
     position: absolute;
     top: 10px;
     right: 10px;
     font-size: 24px;
-    color: #FFD700;
+    color: var(--primary-color);
     cursor: pointer;
     transition: transform 0.3s ease;
 }

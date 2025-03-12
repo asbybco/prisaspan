@@ -1,12 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     body.classList.add('loaded');
+
+    // Partículas (restaurado del original)
     const particlesContainer = document.getElementById('particles');
     if (particlesContainer) {
         for (let i = 0; i < 50; i++) {
             createParticle(particlesContainer);
         }
     }
+
+    // Carrusel (sin cambios)
     const images = document.querySelectorAll('.carousel-image');
     if (images.length > 0) {
         let currentIndex = 0;
@@ -17,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
             images[currentIndex].classList.add('active');
         }, 5000);
     }
-    const menuToggle = document.getElementById('menuToggle');
+
+    // Menú hamburguesa (funciona en ambas páginas)
+    const menuToggle = document.getElementById menace('menuToggle');
     const navMenu = document.getElementById('navMenu');
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
@@ -26,52 +32,192 @@ document.addEventListener('DOMContentLoaded', () => {
             menuToggle.setAttribute('aria-expanded', isExpanded);
         });
     }
+
+    // Teléfono (restaurado del original)
     const phoneIcon = document.getElementById('phoneIcon');
     const elevenlabsConvai = document.getElementById('elevenlabsConvai');
     if (phoneIcon && elevenlabsConvai) {
         phoneIcon.addEventListener('click', () => {
             elevenlabsConvai.classList.toggle('active');
-            phoneIcon.classList.add('vibrate');
-            phoneIcon.classList.add('wave');
+            phoneIcon.classList.add('vibrate', 'wave');
             setTimeout(() => {
-                phoneIcon.classList.remove('vibrate');
-                phoneIcon.classList.remove('wave');
+                phoneIcon.classList.remove('vibrate', 'wave');
             }, 800);
         });
     }
+
+    // Botón de instalación (actualizado con tus requerimientos)
     let deferredPrompt;
+    const widgetContainer = document.querySelector('.elevenlabs-widget-container') || document.body;
     const installBtn = document.createElement('button');
-    installBtn.textContent = 'Instalar';
-    installBtn.className = 'install-btn';
-    const widgetContainer = document.querySelector('.elevenlabs-widget-container');
-    if (widgetContainer) {
-        widgetContainer.appendChild(installBtn);
-    }
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
+    installBtn.classList.add('install-btn');
+    installBtn.textContent = 'Instalar App';
+    widgetContainer.appendChild(installBtn);
+
+    const showInstallButton = () => {
         installBtn.classList.add('visible');
         setTimeout(() => {
             installBtn.classList.remove('visible');
-        }, 5000);
+        }, 15000); // Visible por 15 segundos
+    };
+
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            showInstallButton();
+            setInterval(showInstallButton, 20000); // Ciclo cada 20 segundos
+        }, 7000); // Aparece tras 7 segundos
     });
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+    });
+
     installBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-                console.log('Usuario aceptó instalar la PWA');
-            } else {
-                console.log('Usuario rechazó instalar la PWA');
-            }
+            console.log(outcome === 'accepted' ? 'Usuario aceptó instalar la PWA' : 'Usuario rechazó instalar la PWA');
             deferredPrompt = null;
-            installBtn.classList.remove('visible');
         }
     });
+
     window.addEventListener('appinstalled', () => {
         console.log('PWA instalada');
         installBtn.classList.remove('visible');
     });
+
+    // Código específico del blog
+    if (document.body.classList.contains('blog')) {
+        // Partículas 3D con Three.js (restaurado)
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('particles').appendChild(renderer.domElement);
+        const particleCount = 1000;
+        const particles = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const velocities = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 2000;
+            positions[i + 1] = (Math.random() - 0.5) * 2000;
+            positions[i + 2] = (Math.random() - 0.5) * 2000;
+            velocities[i] = (Math.random() - 0.5) * 2;
+            velocities[i + 1] = (Math.random() - 0.5) * 2;
+            velocities[i + 2] = (Math.random() - 0.5) * 2;
+        }
+        particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particleMaterial = new THREE.PointsMaterial({ color: 0xFFD700, size: 3, transparent: true, opacity: 0.8 });
+        const particleSystem = new THREE.Points(particles, particleMaterial);
+        scene.add(particleSystem);
+        camera.position.z = 1000;
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            const positions = particleSystem.geometry.attributes.position.array;
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i] += velocities[i] * 0.1;
+                positions[i + 1] += velocities[i + 1] * 0.1;
+                positions[i + 2] += velocities[i + 2] * 0.1;
+                if (Math.abs(positions[i]) > 1000) velocities[i] *= -1;
+                if (Math.abs(positions[i + 1]) > 1000) velocities[i + 1] *= -1;
+                if (Math.abs(positions[i + 2]) > 1000) velocities[i + 2] *= -1;
+            }
+            particleSystem.geometry.attributes.position.needsUpdate = true;
+            particleSystem.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        animateParticles();
+
+        // Menú y búsqueda (restaurado y optimizado)
+        const hideMenu = () => {
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        };
+        window.addEventListener('scroll', hideMenu);
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                hideMenu();
+            }
+        });
+
+        const toggleSearch = () => document.getElementById('searchBar').classList.toggle('active');
+        window.toggleSearch = toggleSearch;
+        const hideSearchBar = () => {
+            const searchBar = document.getElementById('searchBar');
+            if (searchBar.classList.contains('active')) {
+                searchBar.classList.remove('active');
+            }
+        };
+        window.addEventListener('scroll', hideSearchBar);
+        document.addEventListener('click', (e) => {
+            const searchBar = document.getElementById('searchBar');
+            const exploreBtn = document.getElementById('explore-btn');
+            if (!searchBar.contains(e.target) && !exploreBtn.contains(e.target)) {
+                hideSearchBar();
+            }
+        });
+
+        // Modales (restaurado)
+        const exploreButtons = document.querySelectorAll('.explore-btn');
+        const overlay = document.getElementById('modalOverlay');
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.modal-close');
+        exploreButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modalId = button.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                modal.classList.add('active');
+                overlay.classList.add('active');
+            });
+        });
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modals.forEach(modal => modal.classList.remove('active'));
+                overlay.classList.remove('active');
+            });
+        });
+        overlay.addEventListener('click', () => {
+            modals.forEach(modal => modal.classList.remove('active'));
+            overlay.classList.remove('active');
+        });
+
+        // Búsqueda de recetas (restaurado)
+        const recipes = [
+            { title: 'Pandebono Clásico', id: 'modal-pandebono' },
+            { title: 'Torta Tres Leches', id: 'modal-torta' },
+            { title: 'Pan Hawaiano', id: 'modal-hawaiano' },
+            { title: 'Buñuelo Relleno De Arequipe', id: 'modal-bunuelo' },
+            { title: 'Pan de Yuca Paisa', id: 'modal-yuca' },
+            { title: 'Pan de Maíz Dulce', id: 'modal-maiz' },
+            { title: 'Huevos con Hogao y Café', id: 'modal-huevos' },
+            { title: 'Arepa de Choclo y Jugo', id: 'modal-arepa' },
+            { title: 'Calentado Paisa y Avena', id: 'modal-calentado' }
+        ];
+        const normalizeText = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        if (searchInput) {
+            searchInput.addEventListener('keyup', () => {
+                const input = normalizeText(searchInput.value);
+                searchResults.innerHTML = '';
+                const matches = recipes.filter(recipe => normalizeText(recipe.title).includes(input));
+                matches.forEach(match => {
+                    const div = document.createElement('div');
+                    div.className = 'p-2 hover:bg-gray-700 cursor-pointer';
+                    div.textContent = match.title;
+                    div.onclick = () => {
+                        document.getElementById(match.id).classList.add('active');
+                        overlay.classList.add('active');
+                        document.getElementById('searchBar').classList.remove('active');
+                    };
+                    searchResults.appendChild(div);
+                });
+            });
+        }
+    }
 });
 
 function createParticle(container) {
@@ -96,137 +242,4 @@ function createParticle(container) {
         particle.remove();
         createParticle(container);
     });
-}
-
-// JS movido desde blog.html
-if (document.body.classList.contains('blog')) {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('particles').appendChild(renderer.domElement);
-    const particleCount = 1000;
-    const particles = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const velocities = new Float32Array(particleCount * 3);
-    for (let i = 0; i < particleCount * 3; i += 3) {
-        positions[i] = (Math.random() - 0.5) * 2000;
-        positions[i + 1] = (Math.random() - 0.5) * 2000;
-        positions[i + 2] = (Math.random() - 0.5) * 2000;
-        velocities[i] = (Math.random() - 0.5) * 2;
-        velocities[i + 1] = (Math.random() - 0.5) * 2;
-        velocities[i + 2] = (Math.random() - 0.5) * 2;
-    }
-    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const particleMaterial = new THREE.PointsMaterial({ color: 0xFFD700, size: 3, transparent: true, opacity: 0.8 });
-    const particleSystem = new THREE.Points(particles, particleMaterial);
-    scene.add(particleSystem);
-    camera.position.z = 1000;
-    function animateParticles() {
-        requestAnimationFrame(animateParticles);
-        const positions = particleSystem.geometry.attributes.position.array;
-        for (let i = 0; i < particleCount * 3; i += 3) {
-            positions[i] += velocities[i] * 0.1;
-            positions[i + 1] += velocities[i + 1] * 0.1;
-            positions[i + 2] += velocities[i + 2] * 0.1;
-            if (Math.abs(positions[i]) > 1000) velocities[i] *= -1;
-            if (Math.abs(positions[i + 1]) > 1000) velocities[i + 1] *= -1;
-            if (Math.abs(positions[i + 2]) > 1000) velocities[i + 2] *= -1;
-        }
-        particleSystem.geometry.attributes.position.needsUpdate = true;
-        particleSystem.rotation.y += 0.001;
-        renderer.render(scene, camera);
-    }
-    animateParticles();
-
-    function hideMenu() {
-        const menu = document.getElementById('navMenu');
-        const toggle = document.getElementById('menuToggle');
-        if (menu.classList.contains('active')) {
-            menu.classList.remove('active');
-            toggle.setAttribute('aria-expanded', 'false');
-        }
-    }
-    window.addEventListener('scroll', hideMenu);
-    document.addEventListener('click', (e) => {
-        const menu = document.getElementById('navMenu');
-        const toggle = document.getElementById('menuToggle');
-        if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-            hideMenu();
-        }
-    });
-
-    const exploreButtons = document.querySelectorAll('.explore-btn');
-    const overlay = document.getElementById('modalOverlay');
-    const modals = document.querySelectorAll('.modal');
-    const closeButtons = document.querySelectorAll('.modal-close');
-    exploreButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modalId = button.getAttribute('data-modal');
-            const modal = document.getElementById(modalId);
-            modal.classList.add('active');
-            overlay.classList.add('active');
-        });
-    });
-    closeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            modals.forEach(modal => modal.classList.remove('active'));
-            overlay.classList.remove('active');
-        });
-    });
-    overlay.addEventListener('click', () => {
-        modals.forEach(modal => modal.classList.remove('active'));
-        overlay.classList.remove('active');
-    });
-
-    function toggleSearch() {
-        const searchBar = document.getElementById('searchBar');
-        searchBar.classList.toggle('active');
-    }
-    function hideSearchBar() {
-        const searchBar = document.getElementById('searchBar');
-        if (searchBar.classList.contains('active')) {
-            searchBar.classList.remove('active');
-        }
-    }
-    window.addEventListener('scroll', hideSearchBar);
-    document.addEventListener('click', (e) => {
-        const searchBar = document.getElementById('searchBar');
-        const exploreBtn = document.getElementById('explore-btn');
-        if (!searchBar.contains(e.target) && !exploreBtn.contains(e.target)) {
-            hideSearchBar();
-        }
-    });
-
-    const recipes = [
-        { title: 'Pandebono Clásico', id: 'modal-pandebono' },
-        { title: 'Torta Tres Leches', id: 'modal-torta' },
-        { title: 'Pan Hawaiano', id: 'modal-hawaiano' },
-        { title: 'Buñuelo Relleno De Arequipe', id: 'modal-bunuelo' },
-        { title: 'Pan de Yuca Paisa', id: 'modal-yuca' },
-        { title: 'Pan de Maíz Dulce', id: 'modal-maiz' },
-        { title: 'Huevos con Hogao y Café', id: 'modal-huevos' },
-        { title: 'Arepa de Choclo y Jugo', id: 'modal-arepa' },
-        { title: 'Calentado Paisa y Avena', id: 'modal-calentado' }
-    ];
-    function normalizeText(text) {
-        return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-    }
-    function searchRecipes() {
-        const input = normalizeText(document.getElementById('searchInput').value);
-        const results = document.getElementById('searchResults');
-        results.innerHTML = '';
-        const matches = recipes.filter(recipe => normalizeText(recipe.title).includes(input));
-        matches.forEach(match => {
-            const div = document.createElement('div');
-            div.className = 'p-2 hover:bg-gray-700 cursor-pointer';
-            div.textContent = match.title;
-            div.onclick = () => {
-                document.getElementById(match.id).classList.add('active');
-                document.getElementById('modalOverlay').classList.add('active');
-                document.getElementById('searchBar').classList.remove('active');
-            };
-            results.appendChild(div);
-        });
-    }
 }
