@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     body.classList.add('loaded');
 
-    // Partículas (restaurado del original)
     const particlesContainer = document.getElementById('particles');
     if (particlesContainer) {
         for (let i = 0; i < 50; i++) {
@@ -10,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Carrusel (sin cambios)
     const images = document.querySelectorAll('.carousel-image');
     if (images.length > 0) {
         let currentIndex = 0;
@@ -22,8 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     }
 
-    // Menú hamburguesa (funciona en ambas páginas)
-    const menuToggle = document.getElementById menace('menuToggle');
+    const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
@@ -33,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Teléfono (restaurado del original)
     const phoneIcon = document.getElementById('phoneIcon');
     const elevenlabsConvai = document.getElementById('elevenlabsConvai');
     if (phoneIcon && elevenlabsConvai) {
@@ -46,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Botón de instalación (actualizado con tus requerimientos)
     let deferredPrompt;
     const widgetContainer = document.querySelector('.elevenlabs-widget-container') || document.body;
     const installBtn = document.createElement('button');
@@ -87,9 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         installBtn.classList.remove('visible');
     });
 
-    // Código específico del blog
     if (document.body.classList.contains('blog')) {
-        // Partículas 3D con Three.js (restaurado)
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -129,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         animateParticles();
 
-        // Menú y búsqueda (restaurado y optimizado)
         const hideMenu = () => {
             if (navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
