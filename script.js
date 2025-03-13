@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('appinstalled', () => {
         console.log('PWA instalada');
-        installBtn.classList.remove('visible');
+        installBtn.style.display = 'none';
     });
 
     if (document.body.classList.contains('blog')) {

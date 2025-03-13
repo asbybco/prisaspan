@@ -95,7 +95,7 @@ nav {
     cursor: pointer;
     opacity: 0;
     transform: translateY(100%);
-    transition: all 1.2s ease;
+    transition: all 2s ease;
     z-index: 1100;
     display: flex;
     align-items: center;
