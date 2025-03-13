@@ -261,8 +261,8 @@ footer {
 }
 
 #inicio {
-    max-width: 90%;
-    margin: 10px;
+    width: calc(90% - 20px);  
+    margin: 10px auto;           
     border-radius: 20px;
     overflow: hidden;
 }
