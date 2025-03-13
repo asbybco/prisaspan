@@ -1,4 +1,4 @@
-const CACHE_NAME = 'prisaspan-v8';
+const CACHE_NAME = 'prisaspan-v9';
 
 const urlsToCache = [
   '/',
