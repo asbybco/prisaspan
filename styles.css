@@ -544,3 +544,30 @@ footer {
         max-width: 90%;
     }
 }
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #5B2A32;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #4A1D27;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #4A1D27;
+  }
+  
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #4A1D27 #5B2A32;
+  }
+  
