@@ -22,39 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
-    let menuTimeout;
 
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             const isExpanded = navMenu.classList.contains('active');
             menuToggle.setAttribute('aria-expanded', isExpanded);
-
-            if (isExpanded) {
-                menuTimeout = setTimeout(() => {
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        menuToggle.setAttribute('aria-expanded', 'false');
-                    }
-                }, 15000);
-            } else {
-                clearTimeout(menuTimeout);
-            }
         });
 
-        window.addEventListener('scroll', () => {
+        const hideMenu = () => {
             if (navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', 'false');
-                clearTimeout(menuTimeout);
             }
-        });
+        };
 
+        window.addEventListener('scroll', hideMenu);
         document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target) && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-                clearTimeout(menuTimeout);
+            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                hideMenu();
             }
         });
     }
@@ -161,19 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 300);
             });
         }
-
-        const hideMenu = () => {
-            if (navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            }
-        };
-        window.addEventListener('scroll', hideMenu);
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                hideMenu();
-            }
-        });
 
         const toggleSearch = () => document.getElementById('searchBar').classList.toggle('active');
         window.toggleSearch = toggleSearch;

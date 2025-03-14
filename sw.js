@@ -1,4 +1,4 @@
-const CACHE_NAME = 'prisaspan-v12';
+const CACHE_NAME = 'prisaspan-v01';
 
 const urlsToCache = [
   '/',
@@ -26,13 +26,13 @@ const urlsToCache = [
   '/img/pan-de-maiz.webp',
   '/img/huevos-hogao.webp',
   '/img/arepa-choclo.webp',
-  '/img/calentado.webp'
+  '/img/calentado.webp',
+  '/img/placeholder.webp'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Cache abierto y recursos precargados');
       return cache.addAll(urlsToCache).catch((error) => {
         console.error('Error al cachear recursos:', error);
       });
@@ -60,25 +60,29 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        return cachedResponse;
+        return fetch(event.request).then((networkResponse) => {
+          if (networkResponse.ok) {
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, networkResponse.clone());
+            });
+            return networkResponse;
+          }
+          return cachedResponse;
+        }).catch(() => cachedResponse);
       }
-
-      // Realizamos la solicitud a la red
       return fetch(event.request).then((networkResponse) => {
-        // Verificamos si es una solicitud válida para cachear
         if (event.request.method === 'GET' && networkResponse.ok) {
-          // Clonamos la respuesta antes de devolverla
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, responseToCache);
-          }).catch((error) => {
-            console.error('Error al guardar en caché:', error);
           });
         }
         return networkResponse;
       }).catch(() => {
-        // Fallback en caso de fallo de red
-        return caches.match('/index.html');
+        if (event.request.destination === 'image') {
+          return caches.match('/img/placeholder.webp');
+        }
+        return new Response('Recurso no disponible offline', { status: 404 });
       });
     })
   );
