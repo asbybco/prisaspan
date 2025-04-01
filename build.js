@@ -5,20 +5,21 @@ const agentId = process.env.AGENT_ID || 'default-agent-id';
 const filePath = path.join(__dirname, 'index.html');
 
 try {
-    let content = fs.readFileSync(filePath, 'utf8');
-
-    const regex = /<elevenlabs-convai id="elevenlabsConvai" class="elevenlabs-convai"(.*?)>/i;
-    if (regex.test(content)) {
-        content = content.replace(
-            regex,
-            `<elevenlabs-convai id="elevenlabsConvai" class="elevenlabs-convai" agent-id="${agentId}">`
-        );
+    const content = fs.readFileSync(filePath, 'utf8');
+    
+    // Usar una expresión regular más precisa y eficiente
+    const updatedContent = content.replace(
+        /<elevenlabs-convai id="elevenlabsConvai" class="elevenlabs-convai"([^>]*)>/i,
+        `<elevenlabs-convai id="elevenlabsConvai" class="elevenlabs-convai" agent-id="${agentId}">`
+    );
+    
+    // Verificar si hubo cambios antes de escribir
+    if (content !== updatedContent) {
+        fs.writeFileSync(filePath, updatedContent, 'utf8');
+        console.log('Agent ID inyectado correctamente:', agentId);
     } else {
-        throw new Error('No se encontró el elemento <elevenlabs-convai> en index.html');
+        console.log('No se encontró el elemento <elevenlabs-convai> o ya tiene el agent-id correcto');
     }
-
-    fs.writeFileSync(filePath, content, 'utf8');
-    console.log('Agent ID injected successfully:', agentId);
 } catch (error) {
     console.error('Error al inyectar el Agent ID:', error.message);
     process.exit(1);

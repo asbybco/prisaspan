@@ -15,25 +15,16 @@
     <meta property="og:type" content="website">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://prisaspan.pages.dev https://*.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://elevenlabs.io https://www.google.com https://*.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' https://prisaspan.pages.dev; frame-src 'self' https://www.google.com; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://elevenlabs.io https://api.us.elevenlabs.io https://*.cloudflare.com;">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","name":"Blog Prisas Pan","description":"Recetas auténticas de panadería artesanal y desayunos de Cali y Medellín con un toque de lujo.","url":"https://prisaspan.pages.dev/blog.html","publisher":{"@type":"Organization","name":"Prisas Pan","logo":"https://prisaspan.pages.dev/img/logo.svg"},"inLanguage":"es"}</script>
-    <link rel="preload" href="./img/pandebono.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="./img/torta-tres-leches.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="./img/pan-hawaiano.webp" as="image" fetchpriority="high">
     <link rel="preload" href="./img/bunuelo.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="./img/pan-de-yuca.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="./img/pan-de-maiz.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="./img/huevos-hogao.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="./img/arepa-choclo.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="./img/calentado.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style" fetchpriority="high" onload="this.rel='stylesheet'">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" as="style" fetchpriority="high" onload="this.rel='stylesheet'">
-    <link rel="preload" href="/styles.css" as="style" fetchpriority="high" onload="this.rel='stylesheet'">
-    <link rel="preload" href="/script.js" as="script" fetchpriority="high">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous" fetchpriority="high">
+    <link rel="preload" href="./img/logo.svg" as="image" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400&display=swap" media="print" onload="this.media='all'" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" fetchpriority="high">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" fetchpriority="high">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
 </head>
 <body class="blog">
     <div class="particle-bg" id="particles"></div>
@@ -45,7 +36,6 @@
             </svg>
             <h1 class="text-3xl font-bold" style="color: #FFD700;">Blog Prisas Pan</h1>
         </div>
-        <!-- Botón de menú hamburguesa añadido -->
         <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" id="menuToggle">☰</button>
         <ul class="flex space-x-6 hidden md:flex" id="navMenu">
             <li><a href="/" class="hover:text-yellow-300 transition">Inicio</a></li>
@@ -60,7 +50,7 @@
         <section id="blog" class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <article class="entry-card relative">
                 <div class="holo-overlay"></div>
-                <img src="./img/pandebono.webp" alt="Pandebono Clásico" class="w-full h-64 object-cover">
+                <img src="./img/pandebono.webp" alt="Pandebono Clásico" class="w-full h-64 object-cover" loading="lazy">
                 <div class="content p-6">
                     <h3 class="text-2xl font-bold">Pandebono Clásico</h3>
                     <p class="text-gray-300 mt-2">Crujiente por fuera, suave por dentro con un toque de maíz tostado.</p>
@@ -69,7 +59,7 @@
             </article>
             <article class="entry-card relative">
                 <div class="holo-overlay"></div>
-                <img src="./img/torta-tres-leches.webp" alt="Torta Tres Leches" class="w-full h-64 object-cover">
+                <img src="./img/torta-tres-leches.webp" alt="Torta Tres Leches" class="w-full h-64 object-cover" loading="lazy">
                 <div class="content p-6">
                     <h3 class="text-2xl font-bold">Torta Tres Leches</h3>
                     <p class="text-gray-300 mt-2">Húmeda y elegante con un toque de ron vallecaucano.</p>
@@ -78,7 +68,7 @@
             </article>
             <article class="entry-card relative">
                 <div class="holo-overlay"></div>
-                <img src="./img/pan-hawaiano.webp" alt="Pan Hawaiano" class="w-full h-64 object-cover">
+                <img src="./img/pan-hawaiano.webp" alt="Pan Hawaiano" class="w-full h-64 object-cover" loading="lazy">
                 <div class="content p-6">
                     <h3 class="text-2xl font-bold">Pan Hawaiano</h3>
                     <p class="text-gray-300 mt-2">Dulce y tropical con un giro de guayaba colombiana.</p>
@@ -87,7 +77,7 @@
             </article>
             <article class="entry-card relative">
                 <div class="holo-overlay"></div>
-                <img src="./img/bunuelo.webp" alt="Buñuelo Relleno De Arequipe" class="w-full h-64 object-cover">
+                <img src="./img/bunuelo.webp" alt="Buñuelo Relleno De Arequipe" class="w-full h-64 object-cover" loading="lazy">
                 <div class="content p-6">
                     <h3 class="text-2xl font-bold">Buñuelo Relleno De Arequipe</h3>
                     <p class="text-gray-300 mt-2">Esponjoso y firme con un corazón de arequipe.</p>
@@ -96,7 +86,7 @@
             </article>
             <article class="entry-card relative">
                 <div class="holo-overlay"></div>
-                <img src="./img/pan-de-yuca.webp" alt="Pan de Yuca Paisa" class="w-full h-64 object-cover">
+                <img src="./img/pan-de-yuca.webp" alt="Pan de Yuca Paisa" class="w-full h-64 object-cover" loading="lazy">
                 <div class="content p-6">
                     <h3 class="text-2xl font-bold">Pan de Yuca Paisa</h3>
                     <p class="text-gray-300 mt-2">Compacto y sabroso con un toque de café antioqueño.</p>
@@ -105,7 +95,7 @@
             </article>
             <article class="entry-card relative">
                 <div class="holo-overlay"></div>
-                <img src="./img/pan-de-maiz.webp" alt="Pan de Maíz Dulce" class="w-full h-64 object-cover">
+                <img src="./img/pan-de-maiz.webp" alt="Pan de Maíz Dulce" class="w-full h-64 object-cover" loading="lazy">
                 <div class="content p-6">
                     <h3 class="text-2xl font-bold">Pan de Maíz Dulce</h3>
                     <p class="text-gray-300 mt-2">Esponjoso y dulce con panela vallecaucana.</p>
@@ -114,7 +104,7 @@
             </article>
             <article class="entry-card relative">
                 <div class="holo-overlay"></div>
-                <img src="./img/huevos-hogao.webp" alt="Huevos Revueltos con Hogao" class="w-full h-64 object-cover">
+                <img src="./img/huevos-hogao.webp" alt="Huevos Revueltos con Hogao" class="w-full h-64 object-cover" loading="lazy">
                 <div class="content p-6">
                     <h3 class="text-2xl font-bold">Huevos con Hogao y Café</h3>
                     <p class="text-gray-300 mt-2">Cremosos con hogao vallecaucano y café con canela.</p>
@@ -123,7 +113,7 @@
             </article>
             <article class="entry-card relative">
                 <div class="holo-overlay"></div>
-                <img src="./img/arepa-choclo.webp" alt="Arepa de Choclo con Queso" class="w-full h-64 object-cover">
+                <img src="./img/arepa-choclo.webp" alt="Arepa de Choclo con Queso" class="w-full h-64 object-cover" loading="lazy">
                 <div class="content p-6">
                     <h3 class="text-2xl font-bold">Arepa de Choclo y Jugo</h3>
                     <p class="text-gray-300 mt-2">Dulce con queso fundido y jugo de naranja-maracuyá.</p>
@@ -132,7 +122,7 @@
             </article>
             <article class="entry-card relative">
                 <div class="holo-overlay"></div>
-                <img src="./img/calentado.webp" alt="Calentado Paisa" class="w-full h-64 object-cover">
+                <img src="./img/calentado.webp" alt="Calentado Paisa" class="w-full h-64 object-cover" loading="lazy">
                 <div class="content p-6">
                     <h3 class="text-2xl font-bold">Calentado Paisa y Avena</h3>
                     <p class="text-gray-300 mt-2">Reconfortante con frijoles y avena especiada.</p>
@@ -350,9 +340,6 @@
         </div>
     </footer>
     <script src="/script.js" defer></script>
-    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91cb4eaa1a234532',t:'MTc0MTM2MzI0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91d3daed2ac78834',t:'MTc0MTQ1Mjg3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91efe7caeef7bd32',t:'MTc0MTc0NzAwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91f3542cafa01375',t:'MTc0MTc4Mjg5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>

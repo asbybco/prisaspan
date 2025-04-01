@@ -26,6 +26,7 @@ body.loaded {
     z-index: -1;
     pointer-events: none;
     overflow: hidden;
+    contain: paint layout style;
 }
 
 .particle {
@@ -33,6 +34,7 @@ body.loaded {
     background: var(--primary-color);
     border-radius: 50%;
     opacity: 0.8;
+    will-change: transform, opacity;
     animation: floatAndExplode linear infinite;
 }
 
@@ -78,86 +80,12 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.install-btn {
-    position: absolute;
-    bottom: 70px;
-    right: 10px;
-    width: 100px;
-    height: 35px;
-    background: var(--primary-color);
-    color: var(--secondary-color);
-    border-radius: 5px;
-    border: none;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(100%);
-    transition: all 2s ease;
-    z-index: 1100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.install-btn.visible {
-    opacity: 1;
-    transform: translateY(0);
-    animation: pulseSubtle 3s ease-in-out infinite;
-}
-
-.install-btn:hover {
-    background: #FFFF99;
-    transform: scale(1.1);
-}
-
-body.blog {
-    background: linear-gradient(135deg, #1A0F11, var(--secondary-color));
-    font-family: 'Montserrat', sans-serif;
-    color: var(--primary-color);
-}
-
-#blog {
-    display: grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 2rem;
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-@media (min-width: 768px) {
-    #blog {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(62, 28, 34, 0.95);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-    z-index: 2000;
-    width: 900px;
-    max-width: 95%;
-    max-height: 80vh;
-    overflow-y: auto;
-    color: #fff;
-}
-
-.modal.active {
-    display: block;
+    contain: layout style;
 }
 
 nav svg {
     transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 nav svg:hover {
@@ -176,13 +104,13 @@ nav ul li {
     margin: 0;
 }
 
-nav ul li a {
+nav ul li a, nav ul li button {
     color: white;
     font-size: 1.125rem;
     transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
+nav ul li a:hover, nav ul li button:hover {
     color: #FFFF99;
 }
 
@@ -208,6 +136,8 @@ section {
     margin: 20px auto;
     padding: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    content-visibility: auto;
+    contain-intrinsic-size: 500px;
 }
 
 .product-card {
@@ -216,6 +146,8 @@ section {
     border-radius: 15px;
     background: rgba(62, 28, 34, 0.8);
     transition: transform 0.5s ease, box-shadow 0.5s ease;
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
 }
 
 .product-card:hover {
@@ -258,6 +190,7 @@ section {
 footer {
     background: linear-gradient(to right, var(--secondary-color), #3e1c22);
     box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.5);
+    contain: content;
 }
 
 #inicio {
@@ -265,6 +198,7 @@ footer {
     margin: 10px auto;
     border-radius: 20px;
     overflow: hidden;
+    contain: layout paint;
 }
 
 #inicio img {
@@ -274,54 +208,12 @@ footer {
     object-position: center;
 }
 
-@media (max-width: 768px) {
-    nav ul {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: var(--secondary-color);
-        padding: 0;
-        margin: 0;
-        gap: 0;
-    }
-    nav ul.active {
-        display: flex;
-    }
-    nav ul li {
-        width: 100%;
-        text-align: center;
-        padding: 0;
-        margin: 0;
-        line-height: 1.5;
-    }
-    nav ul li a {
-        display: block;
-        width: 100%;
-        padding: 0.25rem 0;
-    }
-    nav .menu-toggle {
-        display: block;
-    }
-    .hero-text {
-        font-size: 2rem;
-    }
-    section {
-        padding: 20px;
-        margin: 20px;
-    }
-    .carousel-container {
-        min-height: 8rem;
-    }
-}
-
 .carousel-container {
     position: relative;
     width: 100%;
     min-height: 12rem;
     overflow: hidden;
+    contain: layout size;
 }
 
 .carousel-image {
@@ -411,6 +303,7 @@ footer {
     backdrop-filter: blur(10px);
     transform: perspective(1000px) rotateX(5deg);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    contain: layout style;
 }
 
 .nav-3d ul {
@@ -429,6 +322,7 @@ footer {
 
 .nav-3d svg {
     transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 .nav-3d svg:hover {
@@ -441,6 +335,8 @@ footer {
     border-radius: 15px;
     background: rgba(62, 28, 34, 0.8);
     transition: transform 0.5s ease, box-shadow 0.5s ease;
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
 }
 
 .entry-card:hover {
@@ -477,6 +373,7 @@ footer {
     color: var(--primary-color);
     cursor: pointer;
     transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 .modal-close:hover {
@@ -516,7 +413,118 @@ footer {
     display: block;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(62, 28, 34, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    z-index: 2000;
+    width: 900px;
+    max-width: 95%;
+    max-height: 80vh;
+    overflow-y: auto;
+    color: #fff;
+    contain: content;
+}
+
+.modal.active {
+    display: block;
+}
+
+body.blog {
+    background: linear-gradient(135deg, #1A0F11, var(--secondary-color));
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-color);
+}
+
+#blog {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 2rem;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+  
+::-webkit-scrollbar-track {
+    background: #5B2A32;
+    border-radius: 10px;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #4A1D27;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #4A1D27;
+}
+  
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #4A1D27 #5B2A32;
+}
+
 @media (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--secondary-color);
+        padding: 0;
+        margin: 0;
+        gap: 0;
+    }
+    
+    nav ul.active {
+        display: flex;
+    }
+    
+    nav ul li {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        line-height: 1.5;
+    }
+    
+    nav ul li a {
+        display: block;
+        width: 100%;
+        padding: 0.25rem 0;
+    }
+    
+    nav .menu-toggle {
+        display: block;
+    }
+    
+    .hero-text {
+        font-size: 2rem;
+    }
+    
+    section {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .carousel-container {
+        min-height: 8rem;
+    }
+    
     .nav-3d ul {
         display: none;
         position: absolute;
@@ -528,46 +536,29 @@ footer {
         padding: 0;
         margin: 0;
     }
+    
     .nav-3d ul.active {
         display: flex;
     }
+    
     .nav-3d ul li {
         width: 100%;
         text-align: center;
         padding: 5px 0;
         margin: 0;
     }
+    
     .search-bar {
         width: 90%;
     }
+    
     .modal {
         max-width: 90%;
     }
 }
 
-::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #5B2A32;
-    border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #4A1D27;
-    border-radius: 10px;
-    border: 3px solid transparent;
-    background-clip: content-box;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #4A1D27;
-  }
-  
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #4A1D27 #5B2A32;
-  }
-  
+@media (min-width: 768px) {
+    #blog {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
