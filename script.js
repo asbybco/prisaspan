@@ -4,10 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const particlesContainer = document.getElementById('particles');
     if (particlesContainer) {
-        for (let i = 0; i < 50; i++) {
+        // Reducir el número de partículas en dispositivos móviles
+        const isMobile = window.innerWidth < 768;
+        const particleCount = isMobile ? 20 : 50;
+        for (let i = 0; i < particleCount; i++) {
             createParticle(particlesContainer);
         }
     }
+
+    // Sistema optimizado de carga de imágenes
+    setupOptimizedImageLoading();
+    
+    // Precarga inteligente para navegación fluida
+    setupNavigationPrecaching();
 
     const images = document.querySelectorAll('.carousel-image');
     if (images.length > 0) {
@@ -57,53 +66,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Reemplazar el código del botón de instalación personalizado con el comportamiento nativo
     let deferredPrompt;
-    const widgetContainer = document.querySelector('.elevenlabs-widget-container') || document.body;
-    const installBtn = document.createElement('button');
-    installBtn.classList.add('install-btn');
-    installBtn.textContent = 'Instalar App';
-    widgetContainer.appendChild(installBtn);
-
-    const showInstallButton = () => {
-        installBtn.classList.add('visible');
-        setTimeout(() => {
-            installBtn.classList.remove('visible');
-        }, 15000);
-    };
-
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            showInstallButton();
-            setInterval(showInstallButton, 30000);
-        }, 15000);
-    });
-
     window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
+        // No prevenir el comportamiento por defecto para usar el diálogo nativo
         deferredPrompt = e;
-    });
-
-    installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(outcome === 'accepted' ? 'Usuario aceptó instalar la PWA' : 'Usuario rechazó instalar la PWA');
-            deferredPrompt = null;
-        }
     });
 
     window.addEventListener('appinstalled', () => {
         console.log('PWA instalada');
-        installBtn.style.display = 'none';
+        deferredPrompt = null;
     });
 
     if (document.body.classList.contains('blog')) {
+        // Optimizar Three.js
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        const renderer = new THREE.WebGLRenderer({ 
+            alpha: true,
+            powerPreference: 'high-performance',
+            antialias: false // Deshabilitar anti-aliasing para mejor rendimiento
+        });
+        
+        // Reducir resolución en dispositivos móviles
+        if (window.innerWidth < 768) {
+            renderer.setPixelRatio(window.devicePixelRatio > 1 ? 1.5 : 1);
+        }
+        
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById('particles').appendChild(renderer.domElement);
-        const particleCount = 1000;
+        
+        // Reducir cantidad de partículas en móviles
+        const isMobile = window.innerWidth < 768;
+        const particleCount = isMobile ? 500 : 1000;
+        
         const particles = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
         const velocities = new Float32Array(particleCount * 3);
@@ -120,8 +116,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const particleSystem = new THREE.Points(particles, particleMaterial);
         scene.add(particleSystem);
         camera.position.z = 1000;
-        function animateParticles() {
-            requestAnimationFrame(animateParticles);
+        
+        // Mejorar renderizado con limitación de FPS
+        let animationId;
+        let lastTime = 0;
+        const fps = 30; // Limitar a 30 FPS
+        const interval = 1000 / fps;
+        
+        function animateParticles(currentTime) {
+            animationId = requestAnimationFrame(animateParticles);
+            
+            const delta = currentTime - lastTime;
+            if (delta < interval) return;
+            
+            lastTime = currentTime - (delta % interval);
+            
             const positions = particleSystem.geometry.attributes.position.array;
             for (let i = 0; i < particleCount * 3; i += 3) {
                 positions[i] += velocities[i] * 0.1;
@@ -133,9 +142,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             particleSystem.geometry.attributes.position.needsUpdate = true;
             particleSystem.rotation.y += 0.001;
-            renderer.render(scene, camera);
+            
+            // Solo renderizar si la pestaña está visible
+            if (!document.hidden) {
+                renderer.render(scene, camera);
+            }
         }
-        animateParticles();
+        
+        // Iniciar animación
+        animationId = requestAnimationFrame(animateParticles);
+        
+        // Pausar animación cuando la pestaña no está visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animationId);
+            } else {
+                animationId = requestAnimationFrame(animateParticles);
+            }
+        });
 
         const blogLogo = document.querySelector('.nav-3d svg');
         if (blogLogo) {
@@ -165,28 +189,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        const exploreButtons = document.querySelectorAll('.explore-btn');
+        // Delegación de eventos para modales
         const overlay = document.getElementById('modalOverlay');
-        const modals = document.querySelectorAll('.modal');
-        const closeButtons = document.querySelectorAll('.modal-close');
-        exploreButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const modalId = button.getAttribute('data-modal');
+        document.addEventListener('click', (e) => {
+            // Para botones de explorar
+            if (e.target.classList.contains('explore-btn')) {
+                const modalId = e.target.getAttribute('data-modal');
                 const modal = document.getElementById(modalId);
                 modal.classList.add('active');
                 overlay.classList.add('active');
-            });
+            }
+            
+            // Para botones de cerrar
+            if (e.target.classList.contains('modal-close')) {
+                document.querySelectorAll('.modal').forEach(modal => 
+                    modal.classList.remove('active'));
+                overlay.classList.remove('active');
+            }
         });
-        closeButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                modals.forEach(modal => modal.classList.remove('active'));
+        
+        // Mantener el listener del overlay
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                document.querySelectorAll('.modal').forEach(modal => 
+                    modal.classList.remove('active'));
                 overlay.classList.remove('active');
             });
-        });
-        overlay.addEventListener('click', () => {
-            modals.forEach(modal => modal.classList.remove('active'));
-            overlay.classList.remove('active');
-        });
+        }
 
         const recipes = [
             { title: 'Pandebono Clásico', id: 'modal-pandebono' },
@@ -245,4 +274,126 @@ function createParticle(container) {
         particle.remove();
         createParticle(container);
     });
+}
+
+// Sistema optimizado de carga de imágenes
+function setupOptimizedImageLoading() {
+  // Solo proceder si el navegador soporta IntersectionObserver
+  if ('IntersectionObserver' in window) {
+    // Creamos un Map para trackear las imágenes ya cargadas
+    const loadedImages = new Map();
+    
+    // Configuración del observer
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          
+          // Verificar si la imagen tiene data-src
+          if (!img.dataset.src) {
+            imageObserver.unobserve(img);
+            return;
+          }
+          
+          const src = img.dataset.src;
+          
+          // Verificar si ya tenemos esta imagen en memoria
+          if (!loadedImages.has(src)) {
+            // Crear una imagen oculta para precachear
+            const preloader = new Image();
+            
+            preloader.onload = () => {
+              // Una vez cargada, actualizar la imagen visible
+              img.src = src;
+              img.classList.add('loaded');
+              // Almacenar en nuestro Map para futuras referencias
+              loadedImages.set(src, true);
+            };
+            
+            preloader.src = src;
+          } else {
+            // Si ya está en memoria, asignar directamente
+            img.src = src;
+            img.classList.add('loaded');
+          }
+          
+          // Dejar de observar esta imagen
+          imageObserver.unobserve(img);
+        }
+      });
+    }, {
+      // Cargar cuando la imagen está cerca de entrar en la vista
+      rootMargin: '200px 0px'
+    });
+    
+    // Procesar todas las imágenes en la página
+    document.querySelectorAll('img').forEach(img => {
+      // Si la imagen ya tiene src pero queremos optimizarla
+      if (img.src && !img.dataset.src && !img.classList.contains('active')) {
+        img.dataset.src = img.src;
+        img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%235B2A32'/%3E%3C/svg%3E";
+      }
+      
+      // Observar la imagen
+      if (img.dataset.src) {
+        imageObserver.observe(img);
+      }
+    });
+  }
+}
+
+// Precarga inteligente para navegación fluida
+function setupNavigationPrecaching() {
+  // Detectar secciones en la página
+  const sections = document.querySelectorAll('section');
+  if (sections.length <= 1) return;
+  
+  // Crear un mapa de visibilidad de secciones
+  const sectionVisibility = new Map();
+  sections.forEach(section => {
+    if (section.id) {
+      sectionVisibility.set(section.id, false);
+    }
+  });
+  
+  // Observador para detectar qué sección es visible
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const sectionId = entry.target.id;
+      if (!sectionId) return;
+      
+      sectionVisibility.set(sectionId, entry.isIntersecting);
+      
+      if (entry.isIntersecting) {
+        // Si una sección se vuelve visible, precargar imágenes de secciones adyacentes
+        const currentIndex = Array.from(sections).findIndex(s => s.id === sectionId);
+        
+        // Precargar sección anterior y siguiente
+        [-1, 1].forEach(offset => {
+          const adjacentIndex = currentIndex + offset;
+          if (adjacentIndex >= 0 && adjacentIndex < sections.length) {
+            const adjacentSection = sections[adjacentIndex];
+            const adjacentImages = adjacentSection.querySelectorAll('img[data-src]');
+            
+            adjacentImages.forEach(img => {
+              if (!img.src.includes(img.dataset.src)) {
+                // Crear un precargador para cada imagen
+                const preloader = new Image();
+                preloader.src = img.dataset.src;
+              }
+            });
+          }
+        });
+      }
+    });
+  }, {
+    threshold: 0.1  // 10% de la sección visible para activar
+  });
+  
+  // Observar todas las secciones con ID
+  sections.forEach(section => {
+    if (section.id) {
+      sectionObserver.observe(section);
+    }
+  });
 }

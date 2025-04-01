@@ -1,12 +1,17 @@
-const CACHE_NAME = 'prisaspan-v01';
+const CACHE_NAME = 'prisaspan-v02';
+const IMAGE_CACHE_NAME = 'prisaspan-images-v01';
 
-const urlsToCache = [
+// Separar las URLs en diferentes categorías
+const criticalResources = [
   '/',
   '/index.html',
   '/blog.html',
   '/styles.css',
   '/script.js',
-  '/manifest.json',
+  '/manifest.json'
+];
+
+const imageResources = [
   '/img/hero-prisas-pan.webp',
   '/img/logo.svg',
   '/img/icon-192.png',
@@ -32,11 +37,17 @@ const urlsToCache = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache).catch((error) => {
-        console.error('Error al cachear recursos:', error);
-      });
-    })
+    Promise.all([
+      // Cache recursos críticos primero
+      caches.open(CACHE_NAME).then((cache) => {
+        return cache.addAll(criticalResources);
+      }),
+      
+      // Luego cachear imágenes en un cache separado
+      caches.open(IMAGE_CACHE_NAME).then((cache) => {
+        return cache.addAll(imageResources);
+      })
+    ])
   );
   self.skipWaiting();
 });
@@ -46,7 +57,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
+          if (cacheName !== CACHE_NAME && cacheName !== IMAGE_CACHE_NAME) {
             console.log('Eliminando caché antiguo:', cacheName);
             return caches.delete(cacheName);
           }
@@ -57,33 +68,64 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return fetch(event.request).then((networkResponse) => {
-          if (networkResponse.ok) {
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, networkResponse.clone());
-            });
-            return networkResponse;
+  // Especial manejo para imágenes
+  if (event.request.destination === 'image') {
+    event.respondWith(
+      caches.open(IMAGE_CACHE_NAME).then((cache) => {
+        return cache.match(event.request).then((cachedResponse) => {
+          // Si está en caché, usar la versión cacheada
+          if (cachedResponse) {
+            // En segundo plano, verificar si hay una versión más reciente
+            fetch(event.request)
+              .then((networkResponse) => {
+                if (networkResponse.ok) {
+                  cache.put(event.request, networkResponse.clone());
+                }
+              })
+              .catch(() => console.log('Imagen en caché usada, actualización fallida'));
+              
+            return cachedResponse;
           }
-          return cachedResponse;
-        }).catch(() => cachedResponse);
-      }
-      return fetch(event.request).then((networkResponse) => {
-        if (event.request.method === 'GET' && networkResponse.ok) {
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-        }
-        return networkResponse;
-      }).catch(() => {
-        if (event.request.destination === 'image') {
-          return caches.match('/img/placeholder.webp');
-        }
-        return new Response('Recurso no disponible offline', { status: 404 });
-      });
-    })
-  );
+          
+          // Si no está en caché, intentar la red
+          return fetch(event.request)
+            .then((networkResponse) => {
+              if (networkResponse.ok) {
+                cache.put(event.request, networkResponse.clone());
+              }
+              return networkResponse;
+            })
+            .catch(() => {
+              // Si falla la red, usar un placeholder
+              return caches.match('/img/placeholder.webp');
+            });
+        });
+      })
+    );
+  } else {
+    // Para otros recursos, usar el cache general
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) => {
+        return cache.match(event.request).then((cachedResponse) => {
+          return cachedResponse || fetch(event.request)
+            .then((networkResponse) => {
+              if (networkResponse.ok && event.request.method === 'GET') {
+                cache.put(event.request, networkResponse.clone());
+              }
+              return networkResponse;
+            })
+            .catch(() => {
+              return new Response('Recurso no disponible offline', { status: 404 });
+            });
+        });
+      })
+    );
+  }
+});
+
+// Responder a mensajes para actualización inmediata
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
