@@ -1,8 +1,8 @@
-const CACHE_NAME = 'prisaspan-v03';
-const IMAGE_CACHE_NAME = 'prisaspan-images-v02';
+const CACHE_NAME = 'prisaspan-v04';
+const IMAGE_CACHE_NAME = 'prisaspan-images-v03';
 const MAX_IMAGE_CACHE_ITEMS = 50;
 
-const CACHE_EXPIRATION = 7 * 24 * 60 * 60 * 1000; // 7 días en milisegundos
+const CACHE_EXPIRATION = 7 * 24 * 60 * 60 * 1000;
 
 const criticalResources = [
   '/',
