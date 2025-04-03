@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pedidos corporativos de panadería y pastelería artesanal en Prisas Pan. Servicios para empresas, eventos y celebraciones con productos premium de Cali, Colombia.">
+    <meta name="keywords" content="pedidos corporativos, catering empresarial, panadería para eventos, pastelería corporativa, Prisas Pan, Cali, Colombia">
+    <meta name="author" content="Prisas Pan">
+    <meta name="robots" content="index, follow">
+    <title>Pedidos Corporativos - Prisas Pan Cali</title>
+    <meta property="og:title" content="Pedidos Corporativos - Prisas Pan">
+    <meta property="og:description" content="Servicios de pedidos corporativos de panadería y pastelería para empresas y eventos en Cali, Colombia. Calidad premium y servicio personalizado.">
+    <meta property="og:image" content="https://prisaspan.store/img/corporativo-banner.webp">
+    <meta property="og:url" content="https://prisaspan.store/corporativo.html">
+    <meta property="og:type" content="website">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://prisaspan.store https://*.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://elevenlabs.io https://www.google.com https://*.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' https://prisaspan.store; frame-src 'self' https://www.google.com; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://elevenlabs.io https://api.us.elevenlabs.io https://*.cloudflare.com;">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" media="print" onload="this.media='all'" rel="stylesheet">
+    <link rel="canonical" href="https://prisaspan.store/corporativo.html">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/img/icon-192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/img/icon-192.png" sizes="192x192">
+    <meta name="theme-color" content="#FFD700" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#5B2A32" media="(prefers-color-scheme: dark)">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="corporate">
+    <div class="particle-bg" id="particles"></div>
+    <nav class="text-white" role="navigation">
+        <div class="flex items-center">
+            <svg width="50" height="50" viewBox="0 0 100 100" class="mr-4" aria-label="Logotipo de Prisas Pan">
+                <rect width="100" height="100" fill="#5B2A32"/>
+                <image xlink:href="./img/logo.svg" x="10" y="10" width="80" height="80"/>
+            </svg>
+            <h1 class="text-3xl font-bold">Prisas Pan</h1>
+        </div>
+        <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" id="menuToggle">☰</button>
+        <ul id="navMenu">
+            <li><a href="/" class="hover:text-yellow-300 transition text-lg">Inicio</a></li>
+            <li><a href="/blog.html" class="hover:text-yellow-300 transition text-lg">Blog</a></li>
+            <li><a href="#formulario" class="hover:text-yellow-300 transition text-lg">Contacto</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section id="hero-corporativo" class="h-screen flex items-center justify-center text-center text-white relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-secondary-color to-black opacity-70 z-0"></div>
+            <div class="absolute inset-0 bg-corporativo bg-cover bg-center z-[-1]"></div>
+            <div class="relative z-10 max-w-4xl px-4">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6 text-primary-color animate-pulse-subtle">Pedidos Corporativos</h2>
+                <p class="text-xl md:text-2xl mb-8 font-montserrat">Elevamos sus eventos empresariales con nuestros sabores artesanales</p>
+                <div class="flex flex-col md:flex-row justify-center gap-6">
+                    <a href="#servicios" class="btn-shine px-8 py-4 bg-primary-color text-secondary-color font-bold rounded-lg text-lg transition hover:bg-yellow-400">Nuestros Servicios</a>
+                    <a href="#formulario" class="btn-shine px-8 py-4 bg-secondary-color text-primary-color font-bold rounded-lg text-lg border-2 border-primary-color transition hover:bg-opacity-80">Solicitar Cotización</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="py-16 px-4 max-w-6xl mx-auto">
+            <h3 class="text-3xl font-bold text-center mb-12">Nuestros Servicios Corporativos</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="service-card">
+                    <div class="icon-container">
+                        <i class="fas fa-building text-4xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Eventos Empresariales</h4>
+                    <p class="text-gray-200">Desayunos, coffee breaks y refrigerios para reuniones, capacitaciones y eventos corporativos con productos frescos y de calidad premium.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="icon-container">
+                        <i class="fas fa-gift text-4xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Obsequios Corporativos</h4>
+                    <p class="text-gray-200">Sorprenda a sus clientes y colaboradores con deliciosos presentes personalizados con su imagen corporativa en empaques elegantes.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="icon-container">
+                        <i class="fas fa-calendar-alt text-4xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Celebraciones Especiales</h4>
+                    <p class="text-gray-200">Tortas, postres y mesas dulces para aniversarios empresariales, lanzamientos de productos y fechas especiales.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16">
+                <p class="text-xl mb-8 max-w-2xl mx-auto">Todos nuestros productos corporativos mantienen nuestro compromiso con la calidad artesanal y pueden personalizarse según sus necesidades.</p>
+                <a href="#formulario" class="btn-shine px-8 py-4 bg-primary-color text-secondary-color font-bold rounded-lg text-lg transition hover:bg-yellow-400">Solicitar Información</a>
+            </div>
+        </section>
+
+        <section id="beneficios" class="py-16 px-4 bg-secondary-dark">
+            <div class="max-w-6xl mx-auto">
+                <h3 class="text-3xl font-bold text-center mb-12">¿Por qué elegirnos?</h3>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="benefit-card">
+                        <i class="fas fa-medal text-primary-color text-3xl mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">Calidad Premium</h4>
+                        <p>Ingredientes seleccionados y procesos artesanales que garantizan un sabor excepcional.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <i class="fas fa-truck text-primary-color text-3xl mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">Entrega Puntual</h4>
+                        <p>Cumplimos con los tiempos acordados para que su evento sea perfecto.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <i class="fas fa-paint-brush text-primary-color text-3xl mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">Personalización</h4>
+                        <p>Adaptamos nuestros productos a su imagen corporativa y necesidades específicas.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <i class="fas fa-users text-primary-color text-3xl mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">Asesoría Dedicada</h4>
+                        <p>Un equipo de asesores especializados para guiarlo en cada paso del proceso.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonios" class="py-16 px-4 max-w-6xl mx-auto">
+            <h3 class="text-3xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">Prisas Pan ha sido nuestro proveedor para los desayunos ejecutivos durante el último año. La calidad de sus productos y la puntualidad en las entregas han sido excepcionales.</p>
+                    <div class="testimonial-author">
+                        <p class="author-name">Comercial del Valle S.A.</p>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">Contratamos sus servicios para nuestro aniversario corporativo y superaron nuestras expectativas. Los invitados quedaron encantados con la mesa de postres personalizada.</p>
+                    <div class="testimonial-author">
+                        <p class="author-name">Tecnología Caleña Ltda.</p>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="formulario" class="py-16 px-4 max-w-3xl mx-auto">
+            <div class="bg-secondary-color bg-opacity-90 rounded-xl p-8 shadow-2xl">
+                <h3 class="text-3xl font-bold text-center mb-8">Solicitud de Información</h3>
+                
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label for="nombre" class="block text-primary-color mb-2 font-semibold">Nombre de la empresa</label>
+                            <input type="text" id="nombre" class="form-input w-full bg-opacity-20 bg-black text-white border-primary-color">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contacto" class="block text-primary-color mb-2 font-semibold">Nombre de contacto</label>
+                            <input type="text" id="contacto" class="form-input w-full bg-opacity-20 bg-black text-white border-primary-color">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label for="email" class="block text-primary-color mb-2 font-semibold">Correo electrónico</label>
+                            <input type="email" id="email" class="form-input w-full bg-opacity-20 bg-black text-white border-primary-color">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono" class="block text-primary-color mb-2 font-semibold">Teléfono</label>
+                            <input type="tel" id="telefono" class="form-input w-full bg-opacity-20 bg-black text-white border-primary-color">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tipo-evento" class="block text-primary-color mb-2 font-semibold">Tipo de servicio que requiere</label>
+                        <select id="tipo-evento" class="form-select w-full bg-opacity-20 bg-black text-white border-primary-color">
+                            <option value="" disabled selected>Seleccione una opción</option>
+                            <option value="desayuno">Desayunos corporativos</option>
+                            <option value="coffee">Coffee break</option>
+                            <option value="celebracion">Celebración especial</option>
+                            <option value="obsequios">Obsequios corporativos</option>
+                            <option value="otro">Otro (especificar)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mensaje" class="block text-primary-color mb-2 font-semibold">Detalles de su solicitud</label>
+                        <textarea id="mensaje" rows="4" class="form-textarea w-full bg-opacity-20 bg-black text-white border-primary-color" placeholder="Describa su evento, cantidad de personas, fecha, productos de interés, etc."></textarea>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn-shine px-8 py-4 bg-primary-color text-secondary-color font-bold rounded-lg text-lg transition hover:bg-yellow-400 w-full md:w-auto">Enviar Solicitud</button>
+                        <p class="text-white mt-4">Un asesor especializado se pondrá en contacto con usted a la brevedad posible.</p>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <div class="elevenlabs-widget-container">
+        <i class="fas fa-phone-alt phone-icon" id="phoneIcon" aria-label="Habla con nuestro asistente"></i>
+        <elevenlabs-convai id="elevenlabsConvai" class="elevenlabs-convai"></elevenlabs-convai>
+    </div>
+    
+    <footer class="text-white py-6 px-6 text-center bg-gradient-to-r from-[#5B2A32] to-[#3e1c22] shadow-lg">
+        <div class="flex flex-col items-center space-y-2">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-map-marker-alt text-yellow-300"></i>
+                <p class="font-montserrat text-lg">Cr. 34 con Calle 10 #33-105, Cali, Valle del Cauca</p>
+            </div>
+            <p class="font-montserrat text-lg">© 2025 Prisas Pan. Donde el lujo y la tradición se encuentran.</p>
+        </div>
+    </footer>
+    
+    <script src="/script.js" defer></script>
+</body>
+</html>

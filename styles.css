@@ -562,3 +562,205 @@ body.blog {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
+/* Estilos para la página corporativa */
+body.corporate {
+    background: linear-gradient(135deg, #1A0F11, var(--secondary-color));
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-color);
+}
+
+.bg-secondary-dark {
+    background-color: rgba(59, 28, 34, 0.7);
+    backdrop-filter: blur(10px);
+}
+
+.bg-corporativo {
+    background-image: url('./img/corporativo-banner.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.service-card {
+    background: rgba(62, 28, 34, 0.8);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+}
+
+.icon-container {
+    width: 80px;
+    height: 80px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.benefit-card {
+    background: rgba(45, 20, 25, 0.6);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-card {
+    background: rgba(62, 28, 34, 0.8);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.quote-icon {
+    color: var(--primary-color);
+    opacity: 0.2;
+    font-size: 2.5rem;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.testimonial-text {
+    color: #f0f0f0;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-author {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    padding-top: 1rem;
+}
+
+.author-name {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.stars {
+    color: var(--primary-color);
+}
+
+.form-input, .form-textarea, .form-select {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 0.75rem;
+    width: 100%;
+    color: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+    border-color: #FFFF99;
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+    outline: none;
+}
+
+.btn-shine {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    transition: transform 0.7s;
+}
+
+.btn-shine:hover::after {
+    transform: rotate(30deg) translate(150%, 150%);
+}
+
+/* Botón de pedidos corporativos para añadir en la página principal y blog */
+.corporate-button-container {
+    text-align: center;
+    margin: 4rem auto;
+    max-width: 800px;
+    padding: 0 1rem;
+}
+
+.corporate-button {
+    display: block;
+    background: linear-gradient(135deg, var(--secondary-color), #3e1c22);
+    color: var(--primary-color);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    padding: 1.25rem 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--primary-color);
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+}
+
+.corporate-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    transition: transform 0.7s;
+}
+
+.corporate-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+}
+
+.corporate-button:hover::after {
+    transform: rotate(30deg) translate(150%, 150%);
+}
+
+@media (max-width: 768px) {
+    .corporate-button {
+        font-size: 1.25rem;
+        padding: 1rem 1.5rem;
+    }
+}
