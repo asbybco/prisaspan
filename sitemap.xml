@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://prisaspan.pages.dev/</loc>
+    <loc>https://prisaspan.store/</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://prisaspan.pages.dev/blog.html</loc>
+    <loc>https://prisaspan.store/blog.html</loc>
     <lastmod>2025-03-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://prisaspan.store/corporativo.html</loc>
+    <lastmod>2025-04-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

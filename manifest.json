@@ -2,7 +2,7 @@
     "name": "Prisas Pan",
     "short_name": "PrisasPan",
     "description": "Panadería artesanal de lujo en Cali, Colombia",
-    "start_url": "/index.html",
+    "start_url": "https://prisaspan.store/index.html",
     "display": "standalone",
     "background_color": "#FFD700",
     "theme_color": "#5B2A32",

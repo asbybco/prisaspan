@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /cdn-cgi/
 Allow: /
 
-Sitemap: https://prisaspan.pages.dev/sitemap.xml
+Sitemap: https://prisaspan.store/sitemap.xml
